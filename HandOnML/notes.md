@@ -198,7 +198,7 @@ regressor.fit(X_train, y_train)
 ```
 ## R code
 - Simple linear regression in R auto support feature scaling -> no need to implement feature scaling
-- Use `lm` (linear modal) function in R to do the simple linear regression
+- Use `lm` (linear model) function in R to do the simple linear regression
 - Use `summary(regressor)` function to see statistically info of the modal
 - Use `predict` function to predict the test set
 ``` 
@@ -275,6 +275,9 @@ b1, b2, ..., bn: coeficients
 ## Multiple linear regression in Python code
 - Remember to encode the independence variable and avoid Dummy variable trap
 - Use `sklearn.linear_model` and sublibrary `LinearRegression`
+
+## Multiple linear regression in R code
+- Similar with simple linear regression. We use `lm` model to do the regression
 
 ## Backward elimination
 - We can use `statsmodels.formula.api` to implement backward elimination
