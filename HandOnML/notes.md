@@ -274,3 +274,35 @@ b1, b2, ..., bn: coeficients
 
 ## Multiple linear regression in Python code
 - Remember to encode the independence variable and avoid Dummy variable trap
+- Use `sklearn.linear_model` and sublibrary `LinearRegression`
+
+## Backward elimination
+- We can use `statsmodels.formula.api` to implement backward elimination
+- The model we use in OLS (Ordinary least square)
+```
+# Building the optimal modal using Backward elimination
+import statsmodels.formula.api as sm
+# Add 1 column for constant b0 in equation: y = b0 + b1*x1 + ... + bn*xn
+X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
+# Ordinar least square modal using in backward elimination
+X_opt = X[:,[0,1,2,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+# Remove third variable. P = 0.990 > 0.05
+X_opt = X[:,[0,1,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+# Remove second variable. P = 0.940 > 0.05
+X_opt = X[:,[0,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+# Remove third variable. P = 0.604 > 0.05
+X_opt = X[:,[0,3,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+# Remove third variable. P = 0.060 > 0.05
+X_opt = X[:,[0,3]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+# The model is ok now => Profit is highly depend on R&D Spend
+```
