@@ -218,3 +218,59 @@ y_pred = predict(regressor, newdata = test_set)
 - `ggplot` + `ggtitle` -> set title
 - `ggplot` + `xlab` -> set X axis label
 - `ggplot` + `ylab` -> set Y axis label
+
+# Section 5: Multiple linear regression
+## Multiple linear regression intuition
+- Multiple linear regression hypothesis function
+```
+y = b0 + b1*x1 + b2*x2 + ... + bn*xn
+b0: constant
+b1, b2, ..., bn: coeficients
+```
+
+- Linear regression
+    - Linearity
+    - Multivariate normality
+    - Independence of errors
+- Dummy variable:
+    - the variable created by using OneHotEncoder on categorical variables
+    - We should not implement all of dummy variable at once. It will cause bad result (Dummy variable trap)
+    - If we have `n` dummy variables -> use `n-1` variable in Hypothesis function
+
+## Steps to build a modal
+- Feature selection
+    - Remove some meaningless variables (more light-weight modal)
+    _ Some day we have to explain the meaning of all variable. We need to find only necessary features.
+- 5 method to building a modal
+    1. All in: use all features if:
+        - we have prior knowledge of all variables, OR
+        - we have to build the modal (on behave of boss, leader...), OR
+        - prepare for `Backward elimination`
+    2. Backward elimination (Can be specified as `stepwise regression`)
+        - Step 1: select a significance level to stay in the model (Ex: SL = 0.05)
+        - Step 2: fit the full modal with all possible predictors
+        - Step 3: consider the predictor with the highest P-value. If P>SL, go to Step 4, otherwise go to FINISH
+        - Step 4: remove the predictor
+        - Step 5: fit the model without this variable *
+        - __-> It's the fastest method at all__
+    3. Forward selection (Can be specified as `stepwise regression`)
+        - Step 1: select a significance level to stay in the model (Ex: SL = 0.05)
+        - Step 2: Fit all simple regression model `y ~ xn`. Select the one with the lowest P-value
+        - Step 3: Keep this variable and fit all possible models with one extra predictor added to the one(s) we already have
+        - Step 4: Consider the predictor with the lowest P-value. If P < SL, go to Step3, otherwise go to FINISH
+        - FINISH: keep the previous modal
+    4. Bidirectional elimination (Can be specified as `stepwise regression`)
+        - Step 1: Select a significance level to enter and to stay in the modal. Eg: SLENTER = 0.05, SLSTAY = 0.05
+        - Step 2: Perform the nextstep of `Forward Selection` (new variable must have P < SLENTER to enter)
+        - Step 3: Perform ALL steps of `Backward elimination` (old variables must have P < SLSTAY to stay)
+        - Step 4: No new variables can enter or exit
+        - FINISH: Our modal is ready
+    5. Score comparison (All possible modal)
+        - Step 1: Select a criterion of goodness of fit
+        - Step 2: Construct all possible regression modals: 2^n -1 total combination
+        - Step 3: Select the one with best criterion
+        - FINISH: we have the modal
+        - __-> Not good approach because if we have 10 variables -> we need to try 1023 possible modal__
+
+## Multiple linear regression in Python code
+- Remember to encode the independence variable and avoid Dummy variable trap
