@@ -365,3 +365,16 @@ dataset$Level3 = dataset$Level^3
 poly_reg = lm(formula = Salary ~ .,
               data = dataset)
 ```
+
+# Section 7: Support Vector Machine Regression (SVR)
+- Use `SVR` sub library of `sklearn.svm`
+- Make sure we do the feature scaling when using SVR
+``` 
+from sklearn.svm import SVR
+regressor = SVR(kernel = 'rbf')
+regressor.fit(X,y)
+```
+- Do the inverse transform when get the prediction result
+```
+y_pred = sc_y.inverse_transform(regressor.predict(sc_X.transform(np.array([[6.5]]))))
+```
