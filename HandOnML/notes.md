@@ -358,3 +358,10 @@ lin_reg_2 = LinearRegression()
 lin_reg_2.fit(X_poly, y)
 ```
 ## Polynomial linear regression in R
+- Add extra polynomial variable and do the linear regression for new dataset
+``` 
+dataset$Level2 = dataset$Level^2
+dataset$Level3 = dataset$Level^3
+poly_reg = lm(formula = Salary ~ .,
+              data = dataset)
+```
