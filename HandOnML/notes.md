@@ -196,6 +196,14 @@ from sklearn.linear_model import LinearRegression
 regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 ```
+- Python draw functions
+    - `plt.scatter` to print points
+    - `plt.plot` to draw lines
+    - `plt.title` to set the tittle
+    - `plt.xlabel` to set x label
+    - `plt.ylabel` to set y label
+    - `plt.show` to show the figure
+
 ## R code
 - Simple linear regression in R auto support feature scaling -> no need to implement feature scaling
 - Use `lm` (linear model) function in R to do the simple linear regression
@@ -279,7 +287,7 @@ b1, b2, ..., bn: coeficients
 ## Multiple linear regression in R code
 - Similar with simple linear regression. We use `lm` model to do the regression
 
-## Backward elimination
+## Backward elimination in Python
 - We can use `statsmodels.formula.api` to implement backward elimination
 - The model we use in OLS (Ordinary least square)
 ```
@@ -309,3 +317,44 @@ regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
 regressor_OLS.summary()
 # The model is ok now => Profit is highly depend on R&D Spend
 ```
+## Backward elimination in R
+- We still use `lm` function to do regression in R. But the `summary` function can show the statistically significant result
+```
+# Building the optimal model using Backward Elimination
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State,
+               data = dataset)
+summary(regressor)
+# Remove State (The lm lib auto do the encode categorical data from State to State1, State2, State3 and auto ommit State 1)
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend,
+               data = dataset)
+summary(regressor)
+# Remove Administration P = 0.602 > 0.05 
+regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,
+               data = dataset)
+summary(regressor)
+# Remove Marketing.Spend P = 0.06 > 0.05
+regressor = lm(formula = Profit ~ R.D.Spend,
+               data = dataset)
+summary(regressor)
+```
+
+# Section 6: Polynomial linear regression
+## Polynomial linear regression intuition
+- Equation:
+```
+y = b0 + b1*x1 + b2*x1^2 + ... + bn*b1^n
+```
+- We still call the equation is a linear because the coefficient is `Linear`
+- The model is `linear` when the equation has `linear` coefficients
+## Polynomial linear regression in Python
+- User `PolynomialFeatures` to transform dataset to polynomial dataset
+- After transformation we can use linear regression to the transformed dataset
+``` 
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree = 2)
+X_poly = poly_reg.fit_transform(X)
+poly_reg.fit(X_poly, y)
+lin_reg_2 = LinearRegression()
+lin_reg_2.fit(X_poly, y)
+```
+## Polynomial linear regression in R
