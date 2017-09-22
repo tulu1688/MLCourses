@@ -367,6 +367,7 @@ poly_reg = lm(formula = Salary ~ .,
 ```
 
 # Section 7: Support Vector Machine Regression (SVR)
+## SVR in python
 - Use `SVR` sub library of `sklearn.svm`
 - Make sure we do the feature scaling when using SVR
 ``` 
@@ -378,3 +379,16 @@ regressor.fit(X,y)
 ```
 y_pred = sc_y.inverse_transform(regressor.predict(sc_X.transform(np.array([[6.5]]))))
 ```
+## SVR in R
+- Make sure we install `e1071` to import `SVR` function
+```
+install.packages('e1071')
+```
+- Use `svm` function with `type='eps-regression'` to make the regressor
+``` 
+library('e1071')
+regressor = svm(formula = Salary ~ .,
+                data = dataset,
+                type = 'eps-regression')
+```
+- In R we dont need to do the feature scaling with `svm` lib
