@@ -17,24 +17,18 @@ dataset = dataset[,2:3]
 # test_set = scale(test_set)
 
 # Fitting Regression to the dataset
-# Create your regressor here
+#install.packages('randomForest')
+library(randomForest)
+set.seed(1234)
+regressor = randomForest(x = dataset[1], # dataframe
+                         y = dataset$Salary, # Vector
+                         ntree = 500) # Number of trees to grow
 
 # Predict a new result with Regression
-predict(regressor, data.frame(Level = 6.5,
-                            Level2 = 6.5^2,
-                            Level3 = 6.5^3,
-                            Level4 = 6.5^4))
+predict(regressor, data.frame(Level = 6.5))
 
-# Visualising the Regression modal
-ggplot() +
-    geom_point(aes(x = dataset$Level, y = dataset$Salary), color = 'red') +
-    geom_line(aes(x = dataset$Level, y = predict(regressor, newdata = dataset)), color = 'blue') +
-    ggtitle('Title') +
-    xlab('X label') +
-    ylab('Y label')
-
-# Visualising the Regression modal with smooth curve
-x_grid = seq(min(dataset$Level), max(dataset$Level), 0.1)
+# Visualising the Random Forest Regression modal with smooth curve
+x_grid = seq(min(dataset$Level), max(dataset$Level), 0.01)
 x_grid_frame = data.frame(Level = x_grid,
             Level2 = x_grid^2,
             Level3 = x_grid^3,
@@ -42,6 +36,6 @@ x_grid_frame = data.frame(Level = x_grid,
 ggplot() +
     geom_point(aes(x = dataset$Level, y = dataset$Salary), color = 'red') +
     geom_line(aes(x = x_grid, y = predict(regressor, newdata = x_grid_frame)), color = 'blue') +
-    ggtitle('Title') +
-    xlab('X label') +
-    ylab('Y label')
+    ggtitle('Truth or Bluff (Random Forest Regression)') +
+    xlab('Position Level') +
+    ylab('Salary')

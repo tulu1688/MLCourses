@@ -437,3 +437,18 @@ from sklearn.ensemble import RandomForestRegressor
 regressor = RandomForestRegressor(n_estimators = 10, random_state = 0);
 regressor.fit(X,y)
 ```
+
+## Random Forest Regression in R
+- Install `randomForest` library to do `Random Forest Regression`
+- Use `randomForest` function after install library. The function's params
+    - x: dataframe of dependence variables
+    - y: vector of independence variable
+    - ntree: number of tree to pick
+```
+#install.packages('randomForest')
+library(randomForest)
+set.seed(1234)
+regressor = randomForest(x = dataset[1], # dataframe
+                         y = dataset$Salary, # Vector
+                         ntree = 10) # Number of trees to grow
+```
