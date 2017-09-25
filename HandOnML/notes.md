@@ -392,3 +392,22 @@ regressor = svm(formula = Salary ~ .,
                 type = 'eps-regression')
 ```
 - In R we dont need to do the feature scaling with `svm` lib
+
+# Section 8: Decision Tree Regression
+## Decision Tree Regression intuition
+- CART
+    - CA: Classification Trees
+    - RT: Regression Trees
+- Decision Tree: split ranges of dependence variables to parts
+- The predict value of independence variable will be the average values of the part of dependence variables that associated with its
+## Decision Tree Regression in Python
+- No need do feature scaling
+- Use `DecisionTreeRegressor` in `sklearn.tree`
+- `DecisionTree Model` isn't continue. Its prediction based on the average number of each variable ranges. Other models is continue.
+- In `1-d` this model is not interesting. But with more dimension dataset it's very powerful.
+```
+from sklearn.tree import DecisionTreeRegressor
+regressor = DecisionTreeRegressor(random_state = 0)
+regressor.fit(X,y)
+```
+## Decision Tree Regression in R
