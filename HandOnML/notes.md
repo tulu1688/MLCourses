@@ -411,3 +411,10 @@ regressor = DecisionTreeRegressor(random_state = 0)
 regressor.fit(X,y)
 ```
 ## Decision Tree Regression in R
+- No need do feature scaling
+- Install `rpart` package to use decision tree in R `install.packages('rpart')`
+```
+regressor = rpart(formula = Salary ~ .,
+                  data = dataset,
+                  control = rpart.control(minsplit = 1))
+```
