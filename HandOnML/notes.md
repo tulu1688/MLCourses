@@ -418,3 +418,22 @@ regressor = rpart(formula = Salary ~ .,
                   data = dataset,
                   control = rpart.control(minsplit = 1))
 ```
+
+# Section 9: Random Forest Regression
+## Random forest intuition
+- `Random forest model` is a team of `decision tree models`
+- Ensemble learning -> take multiple times of a learning and get the accumulation result
+- Steps:
+    - Step1: Pick random K data points from the Training set
+    - Step2: Build decision tree on these K data points
+    - Step3: Choose the number Ntree of trees you want to build in Step1&2
+    - Step4: For a new data point, make each one of our new Ntree trees predict the new value of Y to for the data point in question, and assign the new data point the average across all of the predicted Y values.
+
+## Random Forest Regression in Python
+- Using `RandomForestRegressor` library from `sklearn.ensemble` to do random forest regression
+- Remember to choose the `n_estimators`. It's the number of time we do the decision tree models.
+```
+from sklearn.ensemble import RandomForestRegressor
+regressor = RandomForestRegressor(n_estimators = 10, random_state = 0);
+regressor.fit(X,y)
+```
