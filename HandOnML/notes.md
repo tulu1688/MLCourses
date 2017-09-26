@@ -452,3 +452,42 @@ regressor = randomForest(x = dataset[1], # dataframe
                          y = dataset$Salary, # Vector
                          ntree = 10) # Number of trees to grow
 ```
+
+# Section 10: Evaluating regression models performance
+## R-squared intuition
+```
+SSres = (yi - yi^)^2 -> min (SSres: sum of squared residual)
+SStotal = (yi - yavg)^2 -> (SStotal: total sum of squared)
+R^2 = 1 - SSres/SStotal
+```
+- R^2 closer to 1, better our model. `Greater is better`
+- Khi càng thêm predictor vào biểu thức của model -> R^2 sẽ càng giảm.
+    - Ví dụ dataset có 5 independence variable. Dùng 4 independence variable có Rsquare lớn hơn dùng 5.
+## Ajusted R-Squared intuition
+- Relearn
+``` 
+Adj R^2 = 1 - (1-R^2)*(n-1)/(n-p-1)
+p: Number of regressor
+n: sample size
+```
+- 
+## Evaluating Regression Models Performance
+
+__Example__ givens the model equations and the Adjusted R squared
+
+1. Profit ~ R.D.Spend + Administration + Marketing.Spend + State => Adjusted R squared: 0.9452
+2. Profit ~ R.D.Spend + Administration + Marketing.Spend => Adjusted R squared: 0.9475
+3. Profit ~ R.D.Spend + Marketing.Spend => Adjusted R squared: 0.9483
+4. Profit ~ R.D.Spend => Adjusted R squared: 0.9454
+
+__Model 3__ là tốt nhất vì có Adjusted R squared lớn nhất.
+
+# Section 11: Classification
+- Classification models
+    - Logistic Regression
+    - K-Nearest Neighbors (K-NN)
+    - Support Vector Machine (SVM)
+    - Kernel SVM
+    - Naive Bayes
+    - Decision Tree Classification
+    - Random Forest Classification
