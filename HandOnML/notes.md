@@ -491,3 +491,22 @@ __Model 3__ là tốt nhất vì có Adjusted R squared lớn nhất.
     - Naive Bayes
     - Decision Tree Classification
     - Random Forest Classification
+    
+# Section 12: Logistic regression
+## Logistic regression intuition
+- sigmoid function: `p = 1 / (1 + e^(-y))`
+- We use sigmoid function because `ln(p/(1-p)) = b0 + b1*x`
+- Use logistic regression to predict probability
+## Logistic regression in python
+- Remember to do the feature scaling
+- Use `LogisticRegression` library from `sklearn.linear_model` to do the Logistic Regression
+``` 
+from sklearn.linear_model import LogisticRegression
+classifier = LogisticRegression(random_state = 0)
+classifier.fit(X_train, y_train)
+```
+- Use `confusion_matrix` library from `sklearn.metrics` to compute confusion metrics
+``` 
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
+```
