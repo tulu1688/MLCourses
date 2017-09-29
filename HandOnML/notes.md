@@ -510,3 +510,28 @@ classifier.fit(X_train, y_train)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 ```
+
+## Logistic regression in R
+- Remember to do the feature scaling
+- Use `glm` function with parameters:
+    - family: binomial
+    - data: training_set
+``` 
+classifier = glm(formula = Purchased ~ .,
+                 family = binomial,
+                 data = training_set)
+```
+- Predicting with logistic regression
+``` 
+# Predicting the Test set results
+#prob_pred = predict(classifier, type = 'response', newdata = test_set[-3])
+prob_pred = predict(classifier, type = 'response', newdata = test_set[1:2])
+y_pred = ifelse(prob_pred > 0.5, 1, 0)
+
+# Making the confusion matrix
+cm = table(test_set[,3], y_pred)
+```
+- Install package `Elemstatlearn` to visualing the data
+```
+install.packages('ElemStatLearn')
+```
