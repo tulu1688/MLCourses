@@ -567,3 +567,13 @@ y_pred = knn(train = training_set[,1:2],
 
 # Support Vector Machine (SVM)
 ## SVM intuition
+- SVM ~ maximum margin classifier
+- Using `SVC` sub library in `sklearn.svm` to implement SVM classification
+``` 
+from sklearn.svm import SVC
+# We can test some type of kernel to get the best kernel here
+# classifier = SVC(kernel = 'rbf',  random_state = 0)
+# classifier = SVC(kernel = 'poly', degree = 3, coef0 = 0.001, random_state = 0)
+classifier = SVC(kernel = 'linear', random_state = 0)
+classifier.fit(X_train, y_train)
+```
