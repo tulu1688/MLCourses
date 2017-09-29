@@ -538,6 +538,7 @@ install.packages('ElemStatLearn')
 
 # Section 13: K-Nearest neighbors (K-NN)
 ## K-NN intuition
+- K-NN is non-linear classification
 - Step 1: Choose the number K of neighbors
 - Step 2: Take the K nearest neighbors of the new data point, according to the Euclidean distance
 - Step 3: Among these K neighbors, count the number of data points in each category
@@ -554,3 +555,15 @@ classifier = KNeighborsClassifier(n_neighbors = 5,
                                   p = 2)
 classifier.fit(X_train, y_train)
 ```
+## K-NN classification in R
+- Use `class` library in R to implement K-NN
+``` 
+library(class)
+y_pred = knn(train = training_set[,1:2],
+             test = test_set[,1:2],
+             cl = training_set[,3],
+             k = 5) # Number of neighbors
+```
+
+# Support Vector Machine (SVM)
+## SVM intuition
