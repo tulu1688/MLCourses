@@ -535,3 +535,22 @@ cm = table(test_set[,3], y_pred)
 ```
 install.packages('ElemStatLearn')
 ```
+
+# Section 13: K-Nearest neighbors (K-NN)
+## K-NN intuition
+- Step 1: Choose the number K of neighbors
+- Step 2: Take the K nearest neighbors of the new data point, according to the Euclidean distance
+- Step 3: Among these K neighbors, count the number of data points in each category
+- Step 4: Assign the new data point to the category where we counted the most neighbors
+- We got the model
+
+## K-NN classification in Python
+- Use `KNeighborsClassifier` from `sklearn.neighbors` to implement K-NN in python
+``` 
+# Fitting the K-NN classifier to Training set
+from sklearn.neighbors import KNeighborsClassifier
+classifier = KNeighborsClassifier(n_neighbors = 5,
+                                  metric = 'minkowski', # metric: minkowski or euclidean
+                                  p = 2)
+classifier.fit(X_train, y_train)
+```
