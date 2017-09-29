@@ -568,6 +568,8 @@ y_pred = knn(train = training_set[,1:2],
 # Support Vector Machine (SVM)
 ## SVM intuition
 - SVM ~ maximum margin classifier
+
+## SVM classification in Python
 - Using `SVC` sub library in `sklearn.svm` to implement SVM classification
 ``` 
 from sklearn.svm import SVC
@@ -576,4 +578,18 @@ from sklearn.svm import SVC
 # classifier = SVC(kernel = 'poly', degree = 3, coef0 = 0.001, random_state = 0)
 classifier = SVC(kernel = 'linear', random_state = 0)
 classifier.fit(X_train, y_train)
+```
+## SVM classification in R
+- Install `e1071` library to implement SVM classification 
+- Fit the classifier to the Training set
+``` 
+library(e1071)
+classifier = svm(formula = Purchased ~ .,
+                 data = training_set,
+                 type = 'C-classification',
+                 kernel = 'linear')
+```
+- Predicting the Test set results
+``` 
+y_pred = predict(classifier, newdata = test_set[,1:2])
 ```
