@@ -621,3 +621,5 @@ classifier = GaussianNB()
 classifier.fit(X_train, y_train)
 ```
 ## Naive Bayes classification in R
+- Install `e1071` library to use `Naive Bayes` classification
+- In NaiveBayes in R we need to encoding the target feature as factor (smth like categorical variables)
