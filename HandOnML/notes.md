@@ -622,4 +622,16 @@ classifier.fit(X_train, y_train)
 ```
 ## Naive Bayes classification in R
 - Install `e1071` library to use `Naive Bayes` classification
+- Function `naiveBayes`
 - In NaiveBayes in R we need to encoding the target feature as factor (smth like categorical variables)
+
+# Section 17: Decision Tree Classification
+## Decision Tree Classification in Python
+- use `DecisionTreeClassifier` in `sklearn.tree` to implement decision tree classification
+``` 
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train)
+```
+
+## Decision Tree Classification in R
