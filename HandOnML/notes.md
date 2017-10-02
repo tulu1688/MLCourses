@@ -593,3 +593,31 @@ classifier = svm(formula = Purchased ~ .,
 ``` 
 y_pred = predict(classifier, newdata = test_set[,1:2])
 ```
+
+# Section 15: Kernel SVM
+- Kernel function help SVM find the decision boundary 
+- The Gaussian RBF (Radial based function) Kernel
+```
+K(x,li) = e^(-abs(x-li)^2/(2σ^2))
+
+- li: landmark point
+- x: training set point
+```
+- Types most used of kernel functions:
+    - Gaussian RBF kernel
+    - Sigmoid kernel
+    - Polynomial kernel
+    
+# Section 16: Naive Bayes
+## Bayes theorem and Naive Bayes intuition
+``` 
+P(A|B) = P(B|A)*P(A)/P(B) 
+```
+## Naive Bayes classification in Python
+- Using `GaussianNB` in `sklearn.naive_bayes` library to implement NaiveBayes classification
+``` 
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(X_train, y_train)
+```
+## Naive Bayes classification in R
