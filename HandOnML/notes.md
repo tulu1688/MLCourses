@@ -635,3 +635,18 @@ classifier.fit(X_train, y_train)
 ```
 
 ## Decision Tree Classification in R
+- In `Decision Tree Classification` in R we need to encoding the target feature as factor (smth like categorical variables)
+```
+dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
+```
+- Use `rpart` function to implement decision tree clasification
+``` 
+# install.packages('rpart')
+library(rpart)
+classifier = rpart(formula = Purchased ~ .,
+                   data = training_set)
+
+# Predicting the Test set results
+y_pred = predict(classifier, newdata = test_set[,1:2], type = 'class')
+```
+- Remember to use `type = 'class'`, rpart will know that we need to use it's classification feature
