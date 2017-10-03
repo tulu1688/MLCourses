@@ -650,3 +650,22 @@ classifier = rpart(formula = Purchased ~ .,
 y_pred = predict(classifier, newdata = test_set[,1:2], type = 'class')
 ```
 - Remember to use `type = 'class'`, rpart will know that we need to use it's classification feature
+
+
+# Section 18: Random Forest Classification
+## Random forest classification intuition 
+- Random forest is an ensemble learning method by containing numbers of decision tree classification
+- Random forest usually is used in detect people movement
+## Random forest classification in Python
+- Use `RandomForestClassification` in `sklearn.ensemble`
+``` 
+# Fitting the classifier to Training set
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 100, # set too much n_estimators -> overfiting
+                                    criterion = 'entropy',
+                                    random_state = 0)
+classifier.fit(X_train, y_train)
+
+# Predict the Test set result
+y_pred = classifier.predict(X_test)
+```
