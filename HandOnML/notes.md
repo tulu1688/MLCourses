@@ -669,3 +669,25 @@ classifier.fit(X_train, y_train)
 # Predict the Test set result
 y_pred = classifier.predict(X_test)
 ```
+## Random forest classification in R
+- Intall `randomForest` package to run classification
+``` 
+install.packages('randomForest')
+```
+- Remember to encode the target feature as factor (smth like categorical variables)
+``` 
+dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
+```
+- Remember to select the ntree = number of tree of decision tree
+``` 
+library(randomForest)
+classifier = randomForest(x = training_set[,1:2],
+                          y = training_set$Purchased,
+                          ntree = 100)
+
+# Predicting the Test set results
+y_pred = predict(classifier, newdata = test_set[1:2])
+
+# Making the confusion matrix
+cm = table(test_set[,3], y_pred)
+```
