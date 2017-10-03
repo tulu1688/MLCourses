@@ -691,3 +691,43 @@ y_pred = predict(classifier, newdata = test_set[1:2])
 # Making the confusion matrix
 cm = table(test_set[,3], y_pred)
 ```
+
+# Evaluating classification models performance
+## Confusion matrix
+- Accuracy rate: Correct / Total
+- Error rate: Wrong / Total
+## Accuracy paradox
+1. First scenario
+``` 
+    Predicted
+     0     1
+  -------------
+0 | 9700   150
+1 |  50    100
+```
+Accuracy rate: AR = (9700 + 100) / 10000 = 98%
+2. Second scenario
+``` 
+    Predicted
+     0     1
+  -------------
+0 | 9850   0
+1 |  150   0
+```
+Accuracy rate: AR = 9850 / 10000 = 98.5%
+3. Conclusion
+- The accuracy rate in second scenario is better than in first scenario. But the model in second scenario is not better. It's worst, because no True value predicted.
+- The accuracy rate is not really good to determine a model is good or not
+## CAP curve
+- CAP: Cumulative Accuracy Profile
+- ROC: Receiver Operating Characteristic
+- Actually dont really know CAP well
+## Conclusion of Part 3 - Classification
+- Choose model
+    - If your problem is linear, you should go for Logistic Regression or SVM.
+    - If your problem is non linear, you should go for K-NN, Naive Bayes, Decision Tree or Random Forest.
+- Then from a business point of view, we would rather use:
+    - Logistic Regression or Naive Bayes when you want to rank your predictions by their probability. For example if you want to rank your customers from the highest probability that they buy a certain product, to the lowest probability. Eventually that allows you to target your marketing campaigns. And of course for this type of business problem, you should use Logistic Regression if your problem is linear, and Naive Bayes if your problem is non linear.
+    - SVM when you want to predict to which segment your customers belong to. Segments can be any kind of segments, for example some market segments you identified earlier with clustering.
+    - Decision Tree when you want to have clear interpretation of your model results
+    - Random Forest when you are just looking for high performance with less need for interpretation
