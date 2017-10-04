@@ -852,8 +852,59 @@ plot(dendogram,
     ylab = 'Euclidean distances')
 ```
 - Using `cutree` function for `hierarchical model` to clustering
-``` 
+```
 # Fitting the hierarchical clustering to mall dataset
 hc = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
 y_hc = cutree(hc, 5)
 ```
+
+# Section 22_b: DBScan
+## DBScan in python
+- Using `sklearn.cluster.DBSCAN` to cluster
+```
+# Using dbscan to find frequent data zones
+from sklearn.cluster import DBSCAN
+dbscan = DBSCAN(eps = 0.2, # Maximum distance between two samples
+                min_samples = 5,
+                metric = 'euclidean')
+dbscan.fit(X)
+
+# Applying dbscan to the mall dataset
+y_dbscan = dbscan.fit_predict(X)
+```
+- Some case we should do feature scaling when use euclidean distance
+
+# Section 23: Association Rule Learning
+- Some Association Rule Learning models:
+    - Apriori
+    - Eclat
+
+# Section 24: Apriori
+## Apriori intuition
+- Apriori: used to being used in recommendation system
+- Apriori thường được áp dụng trong bài toán khai thác tập phổ biến (frequent itemset)
+- [Refs](https://ongxuanhong.wordpress.com/2015/08/23/khai-thac-luat-tap-pho-bien-frequent-itemsets-voi-thuat-toan-apriori/)
+- Some Apriori keywords:
+    - item: A = apple, B = bread, C = cereal, D = donuts, E = eggs
+    - itemset: \{A, B, C, D, E\}, \{A, C\}, \{D\}, \{B, C, D, E\}, \{B, C, E\}
+    - transaction (TID)
+    - frequent item
+    - k-itemset:
+        - 1-itemset: \{A, B, C\}
+        - 2-itemset: \{\{A, B\}, \{A, C\}\}
+        - 3-itemset: \{\{A, B, C\}, \{B, C, E\}\}
+    - Độ phổ biến (support): `supp(X) = count(X) / |D|. X` trong đó `{B, C}` là tập các hạng mục, D là cơ sở dữ liệu giao dịch
+    - Tập phổ biến (frequent itemset): là tập các hạng mục S (itemset) thỏa mãn độ phổ biến tối thiểu (minsupp – do người dùng xác định như 40% hoặc xuất hiện 5 lần). Nếu supp(S) >= minsupp thì S là tập phổ biến
+    - Tập phổ biến tối đại (max pattern) thỏa mãn:
+        - supp(X) >= minsupp
+        - không tồn tại |X’| > |X|, với X’ cũng phổ biến
+    - Tập phổ biến đóng (closed pattern) thỏa mãn
+        - supp(S) >= minsupp
+        - không tồn tại |X’| > |X| mà supp(X’) = supp(X)
+    - Luật kết hợp (association rule): kí hiệu `X -> Y`, nghĩa là khi X có mặt thì Y cũng có mặt (với xác suất nào đó). Ví dụ, `A -> B`; `A,B -> C`; `B,D -> E`
+    - Độ tin cậy (confidence): được tính bằng `conf(X) = supp(X+Y) / supp(X)`
+- Apriori steps
+    - Step 1: Set a minimum support and confidence
+    - Step 2: Take all the subsets in transactions having higher support than minimum support
+    - Step 3: Take all the rules of these subsets having higher confidence than minimum confidence
+    - Step 4: Short the rules by decreasing lift
