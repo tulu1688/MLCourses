@@ -873,6 +873,16 @@ dbscan.fit(X)
 y_dbscan = dbscan.fit_predict(X)
 ```
 - Some case we should do feature scaling when use euclidean distance
+## DBScan in R
+- Install 'fpc' package to do dbscaling
+- We can do feature scaling because the distance metric is 'euclidean'
+``` 
+# Using "fpc" library to clustering with dbscan
+# install.packages("fpc")
+library(fpc)
+set.seed(123)
+clusters <- fpc::dbscan(X, eps = 5, MinPts = 5)
+```
 
 # Section 23: Association Rule Learning
 - Some Association Rule Learning models:
