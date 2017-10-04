@@ -775,3 +775,33 @@ plt.show()
     - n_clusters: number of clusters
     - init: 'k-means++' help us not falling into random initialization trap
 - After select the optimal number of cluster, we can re-cluster with k-means
+
+## K-means in R
+- First we need to compute WCSS for each number of clusters and draw the "Elbow model" chart. Select the number of cluster in corner of our elbow
+``` 
+# Using the elbow method to find the optimal number of clusters
+wcss <- vector()
+for (i in 1:10) wcss[i] <- sum(kmeans(X,i)$withins)
+plot(1:10, wcss, type = 'b', main = paste('Clusters of clients'),
+     xlab = 'Number of clusters',
+     ylab = 'WCSS')
+```
+- Use `kmeans` function to clustering
+- Use clusplot to draw kmeans clusters
+``` 
+kmeans <- kmeans(X, 5, iter.max = 300, nstart = 10)
+
+# Visualising the clusters
+library(cluster)
+clusplot(X,
+         kmeans$cluster,
+         lines = 0,
+         shade = TRUE,
+         color = TRUE,
+         labels = 2,
+         plotchar = FALSE,
+         span = TRUE,
+         main = paste("Cluster of the clients"),
+         xlab = "Annual income",
+         ylab = "Spending score")
+```
