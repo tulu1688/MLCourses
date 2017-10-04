@@ -1,4 +1,4 @@
-# Data Preprocessing Template
+# K-means clustering
 
 # Importing the libraries
 import numpy as np

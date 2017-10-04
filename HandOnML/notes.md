@@ -805,3 +805,40 @@ clusplot(X,
          xlab = "Annual income",
          ylab = "Spending score")
 ```
+
+# Section 22: Hierarchical clustering
+## Hierarchical clustering intuition
+- Two types of hierarchical clustering approach: agglomerative & divisive
+- Agglomerative Hierarchical Clustering
+    - __Step 1__: Make each data point a single-point cluster -> that forms N clusters
+    - __Step 2__: Take the two closest data points and make them on cluster -> that forms N-1 clusters
+    - __Step 3__: Take the two closest clusters and make them on cluster -> that forms N-2 clusters
+    - __Step 4__: Repeat __Step 3__ until there's only one cluster -> FINISH
+- 4 options of distance between clusters
+    - Option 1: Distance of closest points
+    - Option 2: Distance of furthest points
+    - Option 3: Average distance
+    - Option 4: Distance between centroids
+
+## Hierarchical dendograms
+- Dendogram works like a memory of a HC algorithm
+- [Refrence link](https://en.wikipedia.org/wiki/Dendrogram)
+- Optimal number of clusters is number of intersections between the line pass the largest distance
+
+## Hierarchical clustering in Python
+- Using `scipy.cluster.hierarchy` to create dendogram
+``` 
+# Using the dendogram to find the optimal number of clusters
+import scipy.cluster.hierarchy as sch
+dendogram = sch.dendrogram(sch.linkage(X, method = 'ward'))
+plt.title('Dendogram')
+plt.xlabel('Customers')
+plt.ylabel('Euclidean distance')
+plt.show()
+```
+- User `AgglomerativeClustering` from `sklearn.cluster` to clustering
+``` 
+from sklearn.cluster import AgglomerativeClustering
+hc = AgglomerativeClustering(n_clusters = 5, affinity = 'euclidean', linkage = 'ward')
+y_hc = hc.fit_predict(X)
+```
