@@ -842,3 +842,18 @@ from sklearn.cluster import AgglomerativeClustering
 hc = AgglomerativeClustering(n_clusters = 5, affinity = 'euclidean', linkage = 'ward')
 y_hc = hc.fit_predict(X)
 ```
+## Hierarchical clustering in R
+- Using dendogram to find the optimal number of clusters
+``` 
+dendogram = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
+plot(dendogram,
+    main = paste('Dendogram'),
+    xlab = 'Customers',
+    ylab = 'Euclidean distances')
+```
+- Using `cutree` function for `hierarchical model` to clustering
+``` 
+# Fitting the hierarchical clustering to mall dataset
+hc = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
+y_hc = cutree(hc, 5)
+```

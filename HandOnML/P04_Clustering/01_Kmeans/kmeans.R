@@ -1,4 +1,4 @@
-# Data Preprocessing Template
+# K-means clustering
 
 # Importing the dataset
 dataset = read.csv('Mall_Customers.csv')
