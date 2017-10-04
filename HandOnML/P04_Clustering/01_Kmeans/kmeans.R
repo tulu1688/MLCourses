@@ -16,6 +16,13 @@ plot(1:10, wcss, type = 'b', main = paste('Clusters of clients'),
 set.seed(29)
 kmeans <- kmeans(X, 5, iter.max = 300, nstart = 10)
 
+# Visualising the dbscan clusters with "factoextra"
+# install.packages('factoextra')
+library(factoextra)
+fviz_cluster(kmeans, data = X, stand = FALSE,
+ellipse = FALSE, show.clust.cent = FALSE,
+geom = "point",palette = "jco", ggtheme = theme_classic())
+
 # Visualising the clusters
 library(cluster)
 clusplot(X,
