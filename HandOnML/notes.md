@@ -692,7 +692,7 @@ y_pred = predict(classifier, newdata = test_set[1:2])
 cm = table(test_set[,3], y_pred)
 ```
 
-# Evaluating classification models performance
+# Section 19: Evaluating classification models performance
 ## Confusion matrix
 - Accuracy rate: Correct / Total
 - Error rate: Wrong / Total
@@ -731,3 +731,47 @@ Accuracy rate: AR = 9850 / 10000 = 98.5%
     - SVM when you want to predict to which segment your customers belong to. Segments can be any kind of segments, for example some market segments you identified earlier with clustering.
     - Decision Tree when you want to have clear interpretation of your model results
     - Random Forest when you are just looking for high performance with less need for interpretation
+
+# Section 20: Clustering
+- Clustering is similar to classification, but the basis is different. In Clustering you don’t know what you are looking for, and you are trying to identify some segments or clusters in your data. When you use clustering algorithms on your dataset, unexpected things can suddenly pop up like structures, clusters and groupings you would have never thought of otherwise.
+- Some clustering models:
+    - K-Means Clustering
+    - Hierarchical Clustering
+
+# Section 21: K-Mean clustering
+## K-mean clustering intuition
+- Step 1: choose the number K of clusters
+- Step 2: Select random K points as centroid (Not necessarily from our dataset)
+- Step 3: Assign each data point to the closest centroid -> that forms K clusters
+- Step 4: Reassign each data point to the new closest centroid. If any assignment took place -> go to Step 4 or Finish
+## K-mean random initialization trap
+- K-mean++ can help us avoid the trap of randomly select initial centroids
+## K-mean choosing the right number of clusters
+- Compute WCSS and draw charts of WCSS and number of cluster
+- Choose the value at corner of this L (elbow) shape -> optimal number of clusters
+
+## K-means in python
+- First we need to compute WCSS for each number of clusters and draw the "Elbow model" chart. Select the number of cluster in corner of our elbow
+- Using `KMeans` from `sklearn.cluster` to cluster
+```
+from sklearn.cluster import KMeans
+wcss = []
+for i in range(1,11):
+    kmeans = KMeans(n_clusters = i,
+                    init = 'k-means++',
+                    max_iter = 300,
+                    n_init = 10,
+                    random_state = 0)
+    kmeans.fit(X)
+    wcss.append(kmeans.inertia_)
+
+plt.plot(range(1,11), wcss)
+plt.title('The Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.show()
+```
+- Parameters of KMeans
+    - n_clusters: number of clusters
+    - init: 'k-means++' help us not falling into random initialization trap
+- After select the optimal number of cluster, we can re-cluster with k-means
