@@ -919,6 +919,23 @@ clusters <- fpc::dbscan(X, eps = 5, MinPts = 5)
     - Step 3: Take all the rules of these subsets having higher confidence than minimum confidence
     - Step 4: Short the rules by decreasing lift
 ## Apriori in Python
+- We import `apyori` module to implement apriori algorithm in Python
+- Python apriori parameters:
+    - min_support
+    - min_confidence
+    - min_lift
+    - min_length
+
+``` 
+# Training Apriori on the dataset
+from apyori import apriori
+# get items were bought at least 3 times a day
+rules = apriori(transactions, min_support = 3*7/7500, min_confidence = 0.2, min_lift = 3, min_length = 2)
+
+# Visualising the results
+results = list(rules)
+```
+
 ## Apriori in R
 - Install `arules` package for using in mining association rules and frequent itemsets
 - We can read `transactions` with read.transaction after selecting `arules` library
