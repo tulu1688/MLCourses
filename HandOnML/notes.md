@@ -913,6 +913,15 @@ clusters <- fpc::dbscan(X, eps = 5, MinPts = 5)
         - không tồn tại |X’| > |X| mà supp(X’) = supp(X)
     - Luật kết hợp (association rule): kí hiệu `X -> Y`, nghĩa là khi X có mặt thì Y cũng có mặt (với xác suất nào đó). Ví dụ, `A -> B`; `A,B -> C`; `B,D -> E`
     - Độ tin cậy (confidence): được tính bằng `conf(X) = supp(X+Y) / supp(X)`
+
+``` 
+support(M) = (# itemsets which contain M) / (# total itemsets)
+
+confidence(M1 -> M2) = (#itemsets which contain M1 and M2) / (##itemsets which contain M1)
+
+lift(M1 -> M2) = confidence(M1 -> M2) / support(M2)
+```
+
 - Apriori steps
     - Step 1: Set a minimum support and confidence
     - Step 2: Take all the subsets in transactions having higher support than minimum support
@@ -959,3 +968,14 @@ rules = apriori(data = dataset, parameter = list(support = 3*7/7500, confidence 
 # Visualising the results
 inspect(sort(rules, by = 'lift')[1:10])
 ```
+
+# Section 25: Eclat
+## Eclat intuition
+- Support: `support(M) = (# itemsets which contain M) / (# total itemsets)`
+- Eclat algorithm
+    - Step 1: Set a minimum support
+    - Step 2: Take all the subsets in transactions having the higher support than minimum support
+    - Step 3: Sort the subsets by decreasing support
+- Eclat dont care about `confidence` and `lift` -> __Eclat ~~ Apriori simplified version__
+
+## Eclat in R
