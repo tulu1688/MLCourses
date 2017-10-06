@@ -918,3 +918,27 @@ clusters <- fpc::dbscan(X, eps = 5, MinPts = 5)
     - Step 2: Take all the subsets in transactions having higher support than minimum support
     - Step 3: Take all the rules of these subsets having higher confidence than minimum confidence
     - Step 4: Short the rules by decreasing lift
+## Apriori in Python
+## Apriori in R
+- Install `arules` package for using in mining association rules and frequent itemsets
+- We can read `transactions` with read.transaction after selecting `arules` library
+- Use `itemFrequencyPlot` to show the most frequently bought item
+
+```
+# Data preprocessing
+# install.packages('arules')
+library(arules)
+
+# dataset = read.csv('Market_Basket_Optimisation.csv', header = FALSE)
+dataset = read.transactions('Market_Basket_Optimisation.csv', sep = ',', rm.duplicates =TRUE)
+summary(dataset)
+
+itemFrequencyPlot(dataset, topN = 20)
+
+# Training Apriori on the dataset
+# Support: Buy 3 item for 7 day on week per total 7500 transactions
+rules = apriori(data = dataset, parameter = list(support = 3*7/7500, confidence = 0.4))
+
+# Visualising the results
+inspect(sort(rules, by = 'lift')[1:10])
+```

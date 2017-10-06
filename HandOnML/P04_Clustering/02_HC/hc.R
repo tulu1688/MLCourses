@@ -15,7 +15,7 @@ plot(dendogram,
 hc = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
 y_hc = cutree(hc, 5)
 
-# Visualising the clusters
+# Visualising the clusters with clusterplot
 library(cluster)
 clusplot(X,
         y_hc,

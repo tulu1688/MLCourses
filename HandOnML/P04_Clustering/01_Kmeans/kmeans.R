@@ -23,7 +23,7 @@ fviz_cluster(kmeans, data = X, stand = FALSE,
 ellipse = FALSE, show.clust.cent = FALSE,
 geom = "point",palette = "jco", ggtheme = theme_classic())
 
-# Visualising the clusters
+# Visualising the clusters with clusplot
 library(cluster)
 clusplot(X,
          kmeans$cluster,
