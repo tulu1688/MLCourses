@@ -1024,3 +1024,20 @@ inspect(sort(rules, by = 'support')[1:10])
         - The confidence interval `[ri(n) - delta(n), ri(n) + delta(n)]` around n with `delta = sqrt(3*log(N)/(2*Ni(n)))`
     - Step 3: We selected the ad i that has the maximum UCB `ri(n) + delta(n)`
 - There's no library for R and Python of UCB algorithm so we need to self implement the algorithm
+
+# Section 28: Thompson sampling
+## Thompson sampling intuition
+- Thompson sampling algorithm
+    - Step 1: At each round *n*, we consider two number for each ad *i*:
+        - N1_i(n) - the number of times the ad *i* got reward 1 up to round *n*,
+        - N0_i(n) - the number of times the ad *i* got reward 0 up to round *n*
+    - Step 2: for each ad *i*, we take a random draw from the distribution below:
+        -   `theta_i(n) = beta(N1_i(n) + 1, N0_i(n) + 1)`
+    - Step 3: We select the ad that has the highest `theta_i`
+
+## Comparison between UCB vs Thompson sampling
+|UCB|Thompson sampling|
+|---|---|
+|Deterministic|Probabilistic|
+|Require update at every round (better because update every round. But more heavy)|Can accommodate delayed feedback (Good performance for large dataset)|
+||Better empirical evidence|
