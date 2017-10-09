@@ -33,7 +33,7 @@ Course data: https://www.superdatascience.com/machine-learning/
     - pandas:
         - `import pandas as pd`
         - use to import dataset and manage dataset
-    
+
 - R libraries
 
 ## Importing the dataset
@@ -107,7 +107,7 @@ dataset$Purchased = factor(dataset$Purchased,
 
 ## Split dataset to Training set and Test set
 - Python code: Using sklearn.cross_validation sublib `train_test_split`
-``` 
+```
 # Splitting the dataset into the Training set and Test set
 # random_state => number of random samples
 from sklearn.cross_validation import train_test_split
@@ -116,7 +116,7 @@ from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 ```
 - R code: install `caTools` to split tranning set and test set
-``` 
+```
 # Splitting the dataset into the Training set and Test set
 # Install caTools if not exists
 # install.packages('caTools')
@@ -133,9 +133,9 @@ test_set = subset(dataset, split == FALSE)
 - Two method for feature scaling: standardisation use deviation, normalisation use mean value
     - Mean: x_norm = (x - min_x) / (max_x - min_x)
     - Standard deviation: x_stand = (x - mean) / standard_deviation
-- Depends on context we need scaling the dummy variables or not 
+- Depends on context we need scaling the dummy variables or not
 - Python: using StandardScaler to do feature scaling
-``` 
+```
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
@@ -149,7 +149,7 @@ X_test = sc_X.transform(X_test)
 #y_train = sc_y.fit_transform(y_train)
 ```
 - R: using `scale` function
-``` 
+```
 # Feature Scaling
 # For colum that categorical trasnformed by factor function, these are not numeric so can't be scale
 # example code: training_set = scale(training_set)
@@ -160,7 +160,7 @@ test_set[,2:3] = scale(test_set[,2:3])
 
 ## Change working directory
 - Python
-``` 
+```
 import os
 os.getcwd()
 os.chdir('*****MachineLearning/Machine Learning A-Z Template Folder/Part 2 - Regression/Section 6 - Polynomial Regression/Polynomial_Regression')
@@ -209,7 +209,7 @@ regressor.fit(X_train, y_train)
 - Use `lm` (linear model) function in R to do the simple linear regression
 - Use `summary(regressor)` function to see statistically info of the modal
 - Use `predict` function to predict the test set
-``` 
+```
 # Fitting the simple linear regression to Traning set
 regressor = lm(formula = Salary ~ YearsExperience, data = training_set)
 
@@ -218,7 +218,7 @@ y_pred = predict(regressor, newdata = test_set)
 ```
 - Use `ggplot2` library to visualising the data set.
 - When install `ggplot2` got error `tar: Failed to set default locale` . Here the workaround
-``` 
+```
  system('defaults write org.R-project.R force.LANG en_US.UTF-8')
 ```
 - `ggplot` + `geom_point` -> draw point
@@ -328,7 +328,7 @@ summary(regressor)
 regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend,
                data = dataset)
 summary(regressor)
-# Remove Administration P = 0.602 > 0.05 
+# Remove Administration P = 0.602 > 0.05
 regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,
                data = dataset)
 summary(regressor)
@@ -349,7 +349,7 @@ y = b0 + b1*x1 + b2*x1^2 + ... + bn*b1^n
 ## Polynomial linear regression in Python
 - User `PolynomialFeatures` to transform dataset to polynomial dataset
 - After transformation we can use linear regression to the transformed dataset
-``` 
+```
 from sklearn.preprocessing import PolynomialFeatures
 poly_reg = PolynomialFeatures(degree = 2)
 X_poly = poly_reg.fit_transform(X)
@@ -359,7 +359,7 @@ lin_reg_2.fit(X_poly, y)
 ```
 ## Polynomial linear regression in R
 - Add extra polynomial variable and do the linear regression for new dataset
-``` 
+```
 dataset$Level2 = dataset$Level^2
 dataset$Level3 = dataset$Level^3
 poly_reg = lm(formula = Salary ~ .,
@@ -370,7 +370,7 @@ poly_reg = lm(formula = Salary ~ .,
 ## SVR in python
 - Use `SVR` sub library of `sklearn.svm`
 - Make sure we do the feature scaling when using SVR
-``` 
+```
 from sklearn.svm import SVR
 regressor = SVR(kernel = 'rbf')
 regressor.fit(X,y)
@@ -385,7 +385,7 @@ y_pred = sc_y.inverse_transform(regressor.predict(sc_X.transform(np.array([[6.5]
 install.packages('e1071')
 ```
 - Use `svm` function with `type='eps-regression'` to make the regressor
-``` 
+```
 library('e1071')
 regressor = svm(formula = Salary ~ .,
                 data = dataset,
@@ -465,12 +465,12 @@ R^2 = 1 - SSres/SStotal
     - Ví dụ dataset có 5 independence variable. Dùng 4 independence variable có Rsquare lớn hơn dùng 5.
 ## Ajusted R-Squared intuition
 - Relearn
-``` 
+```
 Adj R^2 = 1 - (1-R^2)*(n-1)/(n-p-1)
 p: Number of regressor
 n: sample size
 ```
-- 
+-
 ## Evaluating Regression Models Performance
 
 __Example__ givens the model equations and the Adjusted R squared
@@ -491,7 +491,7 @@ __Model 3__ là tốt nhất vì có Adjusted R squared lớn nhất.
     - Naive Bayes
     - Decision Tree Classification
     - Random Forest Classification
-    
+
 # Section 12: Logistic regression
 ## Logistic regression intuition
 - sigmoid function: `p = 1 / (1 + e^(-y))`
@@ -500,13 +500,13 @@ __Model 3__ là tốt nhất vì có Adjusted R squared lớn nhất.
 ## Logistic regression in python
 - Remember to do the feature scaling
 - Use `LogisticRegression` library from `sklearn.linear_model` to do the Logistic Regression
-``` 
+```
 from sklearn.linear_model import LogisticRegression
 classifier = LogisticRegression(random_state = 0)
 classifier.fit(X_train, y_train)
 ```
 - Use `confusion_matrix` library from `sklearn.metrics` to compute confusion metrics
-``` 
+```
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 ```
@@ -516,13 +516,13 @@ cm = confusion_matrix(y_test, y_pred)
 - Use `glm` function with parameters:
     - family: binomial
     - data: training_set
-``` 
+```
 classifier = glm(formula = Purchased ~ .,
                  family = binomial,
                  data = training_set)
 ```
 - Predicting with logistic regression
-``` 
+```
 # Predicting the Test set results
 #prob_pred = predict(classifier, type = 'response', newdata = test_set[-3])
 prob_pred = predict(classifier, type = 'response', newdata = test_set[1:2])
@@ -547,7 +547,7 @@ install.packages('ElemStatLearn')
 
 ## K-NN classification in Python
 - Use `KNeighborsClassifier` from `sklearn.neighbors` to implement K-NN in python
-``` 
+```
 # Fitting the K-NN classifier to Training set
 from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors = 5,
@@ -557,7 +557,7 @@ classifier.fit(X_train, y_train)
 ```
 ## K-NN classification in R
 - Use `class` library in R to implement K-NN
-``` 
+```
 library(class)
 y_pred = knn(train = training_set[,1:2],
              test = test_set[,1:2],
@@ -571,7 +571,7 @@ y_pred = knn(train = training_set[,1:2],
 
 ## SVM classification in Python
 - Using `SVC` sub library in `sklearn.svm` to implement SVM classification
-``` 
+```
 from sklearn.svm import SVC
 # We can test some type of kernel to get the best kernel here
 # classifier = SVC(kernel = 'rbf',  random_state = 0)
@@ -580,9 +580,9 @@ classifier = SVC(kernel = 'linear', random_state = 0)
 classifier.fit(X_train, y_train)
 ```
 ## SVM classification in R
-- Install `e1071` library to implement SVM classification 
+- Install `e1071` library to implement SVM classification
 - Fit the classifier to the Training set
-``` 
+```
 library(e1071)
 classifier = svm(formula = Purchased ~ .,
                  data = training_set,
@@ -590,12 +590,12 @@ classifier = svm(formula = Purchased ~ .,
                  kernel = 'linear')
 ```
 - Predicting the Test set results
-``` 
+```
 y_pred = predict(classifier, newdata = test_set[,1:2])
 ```
 
 # Section 15: Kernel SVM
-- Kernel function help SVM find the decision boundary 
+- Kernel function help SVM find the decision boundary
 - The Gaussian RBF (Radial based function) Kernel
 ```
 K(x,li) = e^(-abs(x-li)^2/(2σ^2))
@@ -607,15 +607,15 @@ K(x,li) = e^(-abs(x-li)^2/(2σ^2))
     - Gaussian RBF kernel
     - Sigmoid kernel
     - Polynomial kernel
-    
+
 # Section 16: Naive Bayes
 ## Bayes theorem and Naive Bayes intuition
-``` 
-P(A|B) = P(B|A)*P(A)/P(B) 
+```
+P(A|B) = P(B|A)*P(A)/P(B)
 ```
 ## Naive Bayes classification in Python
 - Using `GaussianNB` in `sklearn.naive_bayes` library to implement NaiveBayes classification
-``` 
+```
 from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
 classifier.fit(X_train, y_train)
@@ -628,7 +628,7 @@ classifier.fit(X_train, y_train)
 # Section 17: Decision Tree Classification
 ## Decision Tree Classification in Python
 - use `DecisionTreeClassifier` in `sklearn.tree` to implement decision tree classification
-``` 
+```
 from sklearn.tree import DecisionTreeClassifier
 classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
 classifier.fit(X_train, y_train)
@@ -640,7 +640,7 @@ classifier.fit(X_train, y_train)
 dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
 ```
 - Use `rpart` function to implement decision tree clasification
-``` 
+```
 # install.packages('rpart')
 library(rpart)
 classifier = rpart(formula = Purchased ~ .,
@@ -653,12 +653,12 @@ y_pred = predict(classifier, newdata = test_set[,1:2], type = 'class')
 
 
 # Section 18: Random Forest Classification
-## Random forest classification intuition 
+## Random forest classification intuition
 - Random forest is an ensemble learning method by containing numbers of decision tree classification
 - Random forest usually is used in detect people movement
 ## Random forest classification in Python
 - Use `RandomForestClassification` in `sklearn.ensemble`
-``` 
+```
 # Fitting the classifier to Training set
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators = 100, # set too much n_estimators -> overfiting
@@ -671,15 +671,15 @@ y_pred = classifier.predict(X_test)
 ```
 ## Random forest classification in R
 - Intall `randomForest` package to run classification
-``` 
+```
 install.packages('randomForest')
 ```
 - Remember to encode the target feature as factor (smth like categorical variables)
-``` 
+```
 dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
 ```
 - Remember to select the ntree = number of tree of decision tree
-``` 
+```
 library(randomForest)
 classifier = randomForest(x = training_set[,1:2],
                           y = training_set$Purchased,
@@ -698,7 +698,7 @@ cm = table(test_set[,3], y_pred)
 - Error rate: Wrong / Total
 ## Accuracy paradox
 1. First scenario
-``` 
+```
     Predicted
      0     1
   -------------
@@ -707,7 +707,7 @@ cm = table(test_set[,3], y_pred)
 ```
 Accuracy rate: AR = (9700 + 100) / 10000 = 98%
 2. Second scenario
-``` 
+```
     Predicted
      0     1
   -------------
@@ -778,7 +778,7 @@ plt.show()
 
 ## K-means in R
 - First we need to compute WCSS for each number of clusters and draw the "Elbow model" chart. Select the number of cluster in corner of our elbow
-``` 
+```
 # Using the elbow method to find the optimal number of clusters
 wcss <- vector()
 for (i in 1:10) wcss[i] <- sum(kmeans(X,i)$withins)
@@ -788,7 +788,7 @@ plot(1:10, wcss, type = 'b', main = paste('Clusters of clients'),
 ```
 - Use `kmeans` function to clustering
 - Use clusplot to draw kmeans clusters
-``` 
+```
 kmeans <- kmeans(X, 5, iter.max = 300, nstart = 10)
 
 # Visualising the clusters
@@ -827,7 +827,7 @@ clusplot(X,
 
 ## Hierarchical clustering in Python
 - Using `scipy.cluster.hierarchy` to create dendogram
-``` 
+```
 # Using the dendogram to find the optimal number of clusters
 import scipy.cluster.hierarchy as sch
 dendogram = sch.dendrogram(sch.linkage(X, method = 'ward'))
@@ -837,14 +837,14 @@ plt.ylabel('Euclidean distance')
 plt.show()
 ```
 - User `AgglomerativeClustering` from `sklearn.cluster` to clustering
-``` 
+```
 from sklearn.cluster import AgglomerativeClustering
 hc = AgglomerativeClustering(n_clusters = 5, affinity = 'euclidean', linkage = 'ward')
 y_hc = hc.fit_predict(X)
 ```
 ## Hierarchical clustering in R
 - Using dendogram to find the optimal number of clusters
-``` 
+```
 dendogram = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
 plot(dendogram,
     main = paste('Dendogram'),
@@ -876,7 +876,7 @@ y_dbscan = dbscan.fit_predict(X)
 ## DBScan in R
 - Install 'fpc' package to do dbscaling
 - We can do feature scaling because the distance metric is 'euclidean'
-``` 
+```
 # Using "fpc" library to clustering with dbscan
 # install.packages("fpc")
 library(fpc)
@@ -914,7 +914,7 @@ clusters <- fpc::dbscan(X, eps = 5, MinPts = 5)
     - Luật kết hợp (association rule): kí hiệu `X -> Y`, nghĩa là khi X có mặt thì Y cũng có mặt (với xác suất nào đó). Ví dụ, `A -> B`; `A,B -> C`; `B,D -> E`
     - Độ tin cậy (confidence): được tính bằng `conf(X) = supp(X+Y) / supp(X)`
 
-``` 
+```
 support(M) = (# itemsets which contain M) / (# total itemsets)
 
 confidence(M1 -> M2) = (#itemsets which contain M1 and M2) / (##itemsets which contain M1)
@@ -935,7 +935,7 @@ lift(M1 -> M2) = confidence(M1 -> M2) / support(M2)
     - min_lift
     - min_length
 
-``` 
+```
 # Training Apriori on the dataset
 from apyori import apriori
 # get items were bought at least 3 times a day
@@ -983,7 +983,7 @@ inspect(sort(rules, by = 'lift')[1:10])
 - We can read `transactions` with read.transaction after selecting `arules` library
 - Use `itemFrequencyPlot` to show the most frequently bought item
 
-``` 
+```
 library(arules)
 dataset = read.csv('Market_Basket_Optimisation.csv', header = FALSE)
 dataset = read.transactions('Market_Basket_Optimisation.csv', sep = ',', rm.duplicates =TRUE)
@@ -998,3 +998,28 @@ rules = eclat(data = dataset, parameter = list(support = 3*7/7500, minlen = 2))
 inspect(sort(rules, by = 'support')[1:10])
 ```
 
+# Section 26: Reinforcement Learning
+- Reinforcement Learning is a branch of Machine Learning, also called Online Learning. It is used to solve interacting problems where the data observed up to time `t` is considered to decide which action to take at time `t + 1`.
+- Reinforcement Learning is also used for Artificial Intelligence when training machines to perform tasks such as walking. Desired outcomes provide the AI with reward, undesired with punishment. Machines learn through trial and error.
+- For example: Reinforcement Learning used to train robot dog walk
+- Some Reinforcement Learning models:
+    - Upper Confidence Bound (UCB)
+    - Thompson Sampling
+
+# Section 27: Upper Confidence Bound (UCB)
+## The multi-armed bandit problem
+- One armed bandit ~ slot machine (It called bandit because it's the quickest machine that get our money in casino)
+- The multi-armed bandit problem (sometimes called the K or N-armed bandit problem) is a problem in which a gambler at a row of slot machines (sometimes known as "one-armed bandits") has to decide which machines to play, how many times to play each machine and in which order to play them -> __We have to find the distribution of these machine to find best machine to exploid__
+- Example: Coca-cola provide some adds and let people choose their best ads. They have to test thousand of people (A/B test) to find the distribution of these ads.
+
+## Upper confidence bound intuition (UCB)
+- [link1](http://banditalgs.com/2016/09/18/the-upper-confidence-bound-algorithm/)
+- [link2](https://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/)
+- UCB algorithm
+    - Step 1: At each round n, we consider two numbers for each ad i:
+        - Ni(n) - the number of times the ad i was selected up to round n
+        - Ri(n) - the sum of rewards of the ad i up to round n
+    - Step 2: From these two numbers we compute
+        - The average reward of ad i up to round n: `ri(n) = Ri(n) / Ni(n)`
+        - The confidence interval `[ri(n) - delta(n), ri(n) + delta(n)]` around n with `delta = sqrt(3*log(N)/(2*Ni(n)))`
+    - Step 3: We selected the ad i that has the maximum UCB `ri(n) + delta(n)`
