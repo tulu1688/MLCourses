@@ -1023,3 +1023,4 @@ inspect(sort(rules, by = 'support')[1:10])
         - The average reward of ad i up to round n: `ri(n) = Ri(n) / Ni(n)`
         - The confidence interval `[ri(n) - delta(n), ri(n) + delta(n)]` around n with `delta = sqrt(3*log(N)/(2*Ni(n)))`
     - Step 3: We selected the ad i that has the maximum UCB `ri(n) + delta(n)`
+- There's no library for R and Python of UCB algorithm so we need to self implement the algorithm
