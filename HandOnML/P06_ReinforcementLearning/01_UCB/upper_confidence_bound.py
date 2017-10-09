@@ -21,7 +21,7 @@ for n in range(0,N):
     reward = dataset.values[n, ad]
     rand_total_rewards = rand_total_rewards + reward
     
-# Imeplementing UCB
+# Implementing UCB
 import math
 numbers_of_selections = [0] * d
 sums_of_rewards = [0] * d
@@ -36,7 +36,7 @@ for n in range(0, N):
             delta_i = math.sqrt(3/2 * math.log(n + 1) / numbers_of_selections[i])
             ucb = average_reward + delta_i
         else:
-            ucb = 10e400
+            ucb = 10e400 # set ucb to very large number -> make sure all value from 1 to d was selected
         if ucb > max_ucb:
             max_ucb = ucb
             ad = i
