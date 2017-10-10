@@ -1044,3 +1044,51 @@ inspect(sort(rules, by = 'support')[1:10])
 |Require update at every round (better because update every round. But more heavy)|Can accommodate delayed feedback (Good performance for large dataset)|
 ||Better empirical evidence|
 
+# Section 29: Natural language processing
+- NLP is a branch of ML
+- Natural Language Processing (or NLP) is applying Machine Learning models to text and language. Teaching machines to understand what is said in spoken and written word is the focus of Natural Language Processing. Whenever you dictate something into your iPhone / Android device that is then converted to text, that’s an NLP algorithm in action.
+- You can also use NLP on a text review to predict if the review is a good one or a bad one. You can use NLP on an article to predict some categories of the articles you are trying to segment. You can use NLP on a book to predict the genre of the book. And it can go further, you can use NLP to build a machine translator or a speech recognition system, and in that last example you use classification algorithms to classify language. Speaking of classification algorithms, most of NLP algorithms are classification models, and they include Logistic Regression, Naive Bayes, CART which is a model based on decision trees, Maximum Entropy again related to Decision Trees, Hidden Markov Models which are models based on Markov processes.
+- A very well-known model in NLP is the Bag of Words model. It is a model used to preprocess the texts to classify before fitting the classification algorithms on the observations containing the texts. 
+
+## NLP in python (Bag of words model)
+- Step 1: Load the dataset
+- Step 2: Cleaning the texts. Use `re` and `nltk` library
+    - Remove numbers
+    - Remove special symbols
+    - Change text into lowercase
+    - Remove stop words. Import the `stopwords` from `nltk.corpus`
+    - Do stemming
+    - Joining back the string
+```
+# Cleaning the texts
+import re
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+
+corpus = []
+for i in range(0,1000):
+    review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
+    review = review.lower()
+    review = review.split()
+    ps = PorterStemmer()
+    review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
+    review = ' '.join(review)
+    corpus.append(review)
+``` 
+- Step 3: Creating the bag of words model
+    - We tokenization the words
+    - Each word will be an independence variables
+    - Use `countVectorizer` in `sklearn.feature_extraction.text` library to tokenizing
+    - `countVectorizer` also have cleaning text feature but we should do it manually for support more options and more controls
+    - `countVectorizer` parameters:
+        - max_features: use most frequent words
+        - 
+``` 
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(max_features = 1500)
+X = cv.fit_transform(corpus).toarray()
+```
+- Step 4: classification
+    - we can choose to best options for NLP: __decision tree and naive bayes__
