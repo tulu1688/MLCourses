@@ -695,7 +695,11 @@ cm = table(test_set[,3], y_pred)
 # Section 19: Evaluating classification models performance
 ## Confusion matrix
 - Accuracy rate: Correct / Total
+    - Accuracy = (TP + TN) / (TP + TN + FP + FN)
 - Error rate: Wrong / Total
+- Precision = TP / (TP + FP)
+- Recall = TP / (TP + FN)
+- F1 Score = 2 * Precision * Recall / (Precision + Recall)
 ## Accuracy paradox
 1. First scenario
 ```
@@ -1054,10 +1058,10 @@ inspect(sort(rules, by = 'support')[1:10])
 - Step 1: Load the dataset
 - Step 2: Cleaning the texts. Use `re` and `nltk` library
     - Remove numbers
-    - Remove special symbols
+    - Remove punctuation
     - Change text into lowercase
     - Remove stop words. Import the `stopwords` from `nltk.corpus`
-    - Do stemming
+    - Do stemming. Ex: `loved` -> `love`
     - Joining back the string
 ```
 # Cleaning the texts
@@ -1077,18 +1081,55 @@ for i in range(0,1000):
     review = ' '.join(review)
     corpus.append(review)
 ``` 
-- Step 3: Creating the bag of words model
+- Step 3: Creating the Bag of Words model
     - We tokenization the words
     - Each word will be an independence variables
     - Use `countVectorizer` in `sklearn.feature_extraction.text` library to tokenizing
     - `countVectorizer` also have cleaning text feature but we should do it manually for support more options and more controls
     - `countVectorizer` parameters:
         - max_features: use most frequent words
-        - 
 ``` 
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
 ```
 - Step 4: classification
-    - we can choose to best options for NLP: __decision tree and naive bayes__
+    - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__
+
+## NLP in R (Bag of words model)
+- Step 1: Load the dataset. Use `read.delim()` for tabular csv file
+``` 
+dataset_original = read.delim('Restaurant_Reviews.tsv', quote = '', stringsAsFactors = FALSE)
+```
+- Step 2: Cleaning the texts. Install `tm` package to `cleaning the texts`
+    - Change text into lowercase
+    - Remove numbers
+    - Remove punctuation
+    - Remove stop words. Install `SnowballC` package to use `stopwords` function
+    - Do stemming. Ex: `loved` -> `love`
+    - Remove extra spaces
+```
+# Cleaning the texts
+# install.packages('tm')
+# install.packages('SnowballC')
+library(tm)
+library(SnowballC)
+corpus = VCorpus(VectorSource(dataset$Review))
+corpus = tm_map(corpus, content_transformer(tolower))
+corpus = tm_map(corpus, removeNumbers)
+corpus = tm_map(corpus, removePunctuation)
+corpus = tm_map(corpus, removeWords, stopwords())
+corpus = tm_map(corpus, stemDocument)
+corpus = tm_map(corpus, stripWhitespace)
+``` 
+- Step 3: Creating the Bag of Words model
+    - We tokenization the words
+    - Each word will be an independence variables
+    - Use `DocumentTermMatrix` function to tokenize corpus
+``` 
+# Creating the Bag of Words model
+dtm = DocumentTermMatrix(corpus)
+dtm = removeSparseTerms(dtm, 0.999)
+```
+- Step 4: classification
+    - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__

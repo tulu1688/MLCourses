@@ -36,10 +36,17 @@ from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 # Fitting the classifier to Training set
+"""
 from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
-classifier.fit(X_train, y_train)
+"""
 
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 100, # set too much n_estimators -> overfiting
+                                    criterion = 'entropy',
+                                    random_state = 0)
+
+classifier.fit(X_train, y_train)
 # Predict the Test set result
 y_pred = classifier.predict(X_test)
 
