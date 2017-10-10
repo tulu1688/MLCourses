@@ -1034,6 +1034,8 @@ inspect(sort(rules, by = 'support')[1:10])
     - Step 2: for each ad *i*, we take a random draw from the distribution below:
         -   `theta_i(n) = beta(N1_i(n) + 1, N0_i(n) + 1)`
     - Step 3: We select the ad that has the highest `theta_i`
+- [Readmore Beta distribution](https://en.wikipedia.org/wiki/Beta_distribution)
+- [Beta distribution vs normal distribution](https://www.quora.com/What-are-the-key-differences-between-normal-distribution-and-beta-distribution)
 
 ## Comparison between UCB vs Thompson sampling
 |UCB|Thompson sampling|
@@ -1041,3 +1043,4 @@ inspect(sort(rules, by = 'support')[1:10])
 |Deterministic|Probabilistic|
 |Require update at every round (better because update every round. But more heavy)|Can accommodate delayed feedback (Good performance for large dataset)|
 ||Better empirical evidence|
+
