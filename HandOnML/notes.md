@@ -1133,3 +1133,24 @@ dtm = removeSparseTerms(dtm, 0.999)
 ```
 - Step 4: classification
     - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__
+    
+# Section 30: Deep Learning
+- Deep Learning models can be used for a variety of complex tasks:
+    - Artificial Neural Networks for Regression and Classification
+    - Convolutional Neural Networks for Computer Vision
+    - Recurrent Neural Networks for Time Series Analysis
+    - Self Organizing Maps for Feature Extraction
+    - Deep Boltzmann Machines for Recommendation Systems
+    - Auto Encoders for Recommendation Systems
+- Some basic deep learning model
+    - Artificial Neural Networks for a Business Problem
+    - Convolutional Neural Networks for a Computer Vision task
+
+## What is deep learning
+- Geoffrey Hilton: God father of `Deep learning`
+- Deep learning model mimics human brain with a lots of layers:
+    - Input layer
+    - Lots of hidden layers
+    - And output
+
+# Section 31: Artificial Neural Networks
