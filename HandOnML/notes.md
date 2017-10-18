@@ -1052,7 +1052,7 @@ inspect(sort(rules, by = 'support')[1:10])
 - NLP is a branch of ML
 - Natural Language Processing (or NLP) is applying Machine Learning models to text and language. Teaching machines to understand what is said in spoken and written word is the focus of Natural Language Processing. Whenever you dictate something into your iPhone / Android device that is then converted to text, that’s an NLP algorithm in action.
 - You can also use NLP on a text review to predict if the review is a good one or a bad one. You can use NLP on an article to predict some categories of the articles you are trying to segment. You can use NLP on a book to predict the genre of the book. And it can go further, you can use NLP to build a machine translator or a speech recognition system, and in that last example you use classification algorithms to classify language. Speaking of classification algorithms, most of NLP algorithms are classification models, and they include Logistic Regression, Naive Bayes, CART which is a model based on decision trees, Maximum Entropy again related to Decision Trees, Hidden Markov Models which are models based on Markov processes.
-- A very well-known model in NLP is the Bag of Words model. It is a model used to preprocess the texts to classify before fitting the classification algorithms on the observations containing the texts. 
+- A very well-known model in NLP is the Bag of Words model. It is a model used to preprocess the texts to classify before fitting the classification algorithms on the observations containing the texts.
 
 ## NLP in python (Bag of words model)
 - Step 1: Load the dataset
@@ -1080,7 +1080,7 @@ for i in range(0,1000):
     review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
     review = ' '.join(review)
     corpus.append(review)
-``` 
+```
 - Step 3: Creating the Bag of Words model
     - We tokenization the words
     - Each word will be an independence variables
@@ -1088,7 +1088,7 @@ for i in range(0,1000):
     - `countVectorizer` also have cleaning text feature but we should do it manually for support more options and more controls
     - `countVectorizer` parameters:
         - max_features: use most frequent words
-``` 
+```
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
@@ -1098,7 +1098,7 @@ X = cv.fit_transform(corpus).toarray()
 
 ## NLP in R (Bag of words model)
 - Step 1: Load the dataset. Use `read.delim()` for tabular csv file
-``` 
+```
 dataset_original = read.delim('Restaurant_Reviews.tsv', quote = '', stringsAsFactors = FALSE)
 ```
 - Step 2: Cleaning the texts. Install `tm` package to `cleaning the texts`
@@ -1121,19 +1121,19 @@ corpus = tm_map(corpus, removePunctuation)
 corpus = tm_map(corpus, removeWords, stopwords())
 corpus = tm_map(corpus, stemDocument)
 corpus = tm_map(corpus, stripWhitespace)
-``` 
+```
 - Step 3: Creating the Bag of Words model
     - We tokenization the words
     - Each word will be an independence variables
     - Use `DocumentTermMatrix` function to tokenize corpus
-``` 
+```
 # Creating the Bag of Words model
 dtm = DocumentTermMatrix(corpus)
 dtm = removeSparseTerms(dtm, 0.999)
 ```
 - Step 4: classification
     - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__
-    
+
 # Section 30: Deep Learning
 - Deep Learning models can be used for a variety of complex tasks:
     - Artificial Neural Networks for Regression and Classification
@@ -1154,3 +1154,62 @@ dtm = removeSparseTerms(dtm, 0.999)
     - And output
 
 # Section 31: Artificial Neural Networks
+## The neuron
+- Neuron + dendrites + axon
+    - Dendrites: receiver for the signal
+    - Axon: transmitter for the signal
+- Basically the neuron get signal from other neurons
+```
+Input signal 1 --
+                  >
+Input signal 2 ---> Neuron -> Output
+      ...         >
+Input signal m --
+```
+##The activation function
+- Threshold function
+```
+θ(x) = 1 if x≥0
+       0 if x<0
+```
+- Sigmoid function
+```
+θ(x) = 1 / (1 + e^(-x))
+```
+- Rectifier function (King of functions, one of the most functions in Neural network)
+```
+θ(x) = max(x,0)
+```
+- Hyperbolic tangent (tanh)
+```
+θ(x) = (1-e^(-2x)) / (1+e^(-2x))
+```
+- Assuming the dependent variables is binary (0 or 1) we can choose:
+    - threshold activation function
+    - sigmoid activation function
+    - Data-scientist usually use `rectifier` function for hidden layers and `sigmoid` function for out put layer
+
+## How do the NNs learn?
+```
+X1 --
+     >
+X2 ---> ∑(w_i * x_i) -> y^
+ ... >
+Xm --
+```
+- Given a initial values of weight (W1, W2, W3, ... Wm)
+- The NN compute the output values y^ and the cost value: `C = 0.5 * ∑(y^ - y) ^ 2`
+- Then, the NN adjusts W_1, W_2, ... W_m to minimize the cost value `C`
+- When the `C` small enough we have a new NN model
+
+## Gradient descent
+- `Gradient descent` is a method for adjust the weights of the NNs.
+- There's a method, which used a brute force way to try thousand of weights value and compute the cost function. The weight with smallest value of cost function make our models --> this method is time consuming.
+- `Gradient descent` has a more effectively and quickly method for find minimum cost value using `derivative`
+
+## Stochastic gradient descent
+- `Stochastic gradient descent` (or `mini batch gradient descent`) is like `gradient descent` (or `batch gradient descent`) but we do with every steps of added values. The `gradient descent` use whole data.
+- This method help us avoid local minimum problem in `batch gradient descent`.
+
+## Back propagation
+- `Back propagation` is an advance algorithm allows us to adjust weights after calculate error (cost)

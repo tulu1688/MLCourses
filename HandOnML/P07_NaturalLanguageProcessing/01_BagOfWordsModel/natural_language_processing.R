@@ -25,6 +25,7 @@ dataset$Liked = dataset_original$Liked
 # Encoding the target feature as factor
 dataset$Liked = factor(dataset$Liked, levels = c(0,1))
 
+# install.packages('caTools')
 library(caTools)
 set.seed(123)
 split = sample.split(dataset$Liked, SplitRatio = 0.8)
@@ -37,6 +38,7 @@ test_set = subset(dataset, split == FALSE)
 #classifier = naiveBayes(x = training_set[,-692],
 #                        y = training_set$Liked)
 
+# install.packages('randomForest')
 library(randomForest)
 classifier = randomForest(x = training_set[,-692],
                           y = training_set$Liked,
