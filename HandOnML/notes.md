@@ -106,11 +106,11 @@ dataset$Purchased = factor(dataset$Purchased,
 ```
 
 ## Split dataset to Training set and Test set
-- Python code: Using sklearn.cross_validation sublib `train_test_split`
+- Python code: Using sklearn.model_selection sublib `train_test_split`
 ```
 # Splitting the dataset into the Training set and Test set
 # random_state => number of random samples
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 #X_train, X_test = train_test_split(X, test_size=0.2, random_state = 0)
 #y_train, y_test = train_test_split(y, test_size=0.2, random_state = 0)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
@@ -1213,3 +1213,27 @@ Xm --
 
 ## Back propagation
 - `Back propagation` is an advance algorithm allows us to adjust weights after calculate error (cost)
+
+## Install Theano, Tensorflow, Keras
+- `Theano` opensource numerical computation library, can run in GPU. Developed by group of people in the University of Montreal
+```
+pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
+```
+- `Tensorflow` opensource numerical computation library, can run in GPU. Developed originally by Google but now it is a Apache project. There's some ways to install `tensorflow`
+  - From a docker
+  - From a virtual machine
+  - Anaconda intergrated version. Follow [link](https://www.tensorflow.org/install/install_mac#installing_with_anaconda)
+```
+Step 1: Install anaconda
+Step 2: Create a conda environment named tensorflow
+  conda create -n tensorflow
+Step 3: Activate the conda environment
+  source activate tensorflow
+Step 4: Issue a command of the following format to install TensorFlow inside your conda environment:
+  pip install --ignore-installed --upgrade TF_PYTHON_URL
+  pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.3.0-py3-none-any.whl
+```
+- `Keras` is an amazing library to build deep learning model. Build by a machine learning scientist at Google.
+```
+pip install --upgrade keras
+```
