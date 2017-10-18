@@ -1237,3 +1237,52 @@ Step 4: Issue a command of the following format to install TensorFlow inside you
 ```
 pip install --upgrade keras
 ```
+
+## ANN in python
+- Do data pre-processing like we do in other model
+- We use `keras` in our example. By default, our `keras` using `Tensorflow` backend. if we need use `keras` with `Theano`, we need to manually config `keras`.
+    - Use `Sequential` model to initialize our neural network
+    - Use `Dense` model to build layers of our ANN
+``` 
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+```
+
+- Tips: By experiments `the number of nodes in hidden layers equal the average between input layer and output layer - Udemy Teacher`
+- If the output layer has more than 2 layers we should use the activation function is `submask` instead of `sigmoid`
+``` 
+# Adding the input layer and first hidden layer
+classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layers equal average of node in both intput and output layers
+                                     # Input layers: 11 nodes - 11 independent variables
+                                     # Output layers: 1 node - 1 dependent variable
+                     init = 'uniform',
+                     activation = 'relu', # rectifier activation function for hidden layer
+                     input_dim = 11))
+
+# Adding the second hidden layer
+classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layers equal average of node in both intput and output layers
+                                     # Input layers: 11 nodes - 11 independent variables
+                                     # Output layers: 1 node - 1 dependent variable
+                     init = 'uniform',
+                     activation = 'relu')) # rectifier activation function for hidden layer
+
+# Adding the output layer
+classifier.add(Dense(output_dim = 1, # We have only 1 dependent variable
+                     init = 'uniform',
+                     activation = 'sigmoid')) # Use sigmoid function for output layer
+                     
+# Copy the ANN
+classifier.compile(optimizer = 'adam', # Optimizer is algorithm used to find initialized set-up weights
+                                       # 'adam' is one of the effective stochastic gradient descend
+                   loss = 'binary_crossentropy', # loss function equivalent with sigmoid activation function
+                   metrics=['accuracy']
+                   )
+```
+- When fitting the ANN with the training set using we need to specify 2 more parameters
+    - batch_size (by default, the value is 32. We should choose smaller value. Maybe 10)
+    - nb_epoch: number of epoch
+``` 
+# Fitting the ANN to the Training set
+classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
+```
