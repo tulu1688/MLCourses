@@ -1312,6 +1312,8 @@ classifier = h2o.deeplearning(y = 'Exited',
 ```
 
 # Section 32: Convolutional neural network
+- CNN is an ANN and a great deeplearning model for computer vision (to classify images, photographs, videos...)
+
 ## Convolutional neural network
 - Convolutional = `tích chập`. Refs links:
   - [link](https://www.stdio.vn/articles/read/386/phep-tich-chap-trong-xu-ly-anh-convolution)
@@ -1450,3 +1452,70 @@ Input image       -->       convolutional layers     -->      pooling layer     
   - Mean squared error: NN1 = 0.25; NN2 = 0.71
   - __Cross entropy: NN1 = 0.38; NN2 = 1.06__
   - __Cross entropy__ is more effectively than __mean squared error__ function
+
+## Convolutional Neural Network in Python
+- Train CNN to predict photo of dogs or cats
+- [The dataset for this example](http://www.superdatascience.com/wp-content/uploads/2017/03/Convolutional-Neural-Networks.zip)
+- Prepare data: separate cats and dogs pictures data in folder -> `keras` will automatically know and label our input
+- CNN python initialising steps:
+  - Step 1: Convolution
+```
+classifier.add(Convolution2D(
+        32, # number of feature detectors
+            # We can use larger number when working with GPU
+        3, # row of each feature detector
+        3, # columns of reach feature detector
+        input_shape=(64,64,3),  # if using Theano backend input_shape=(3,64,64)
+                                # We can use larger shape size when working with GPU. Ex: 256 * 256
+                                # 3 mean we working with color images. These are R,G,B channels
+        activation = 'relu' # Use rectifier activation function -> make sure we working with non negative values
+        ))
+```
+  - Step 2: Max pooling
+```
+# Do Pooling to reduce number of feature maps
+classifier.add(MaxPooling2D(pool_size = (2,2))) # Larger pool size -> more information we loose
+```
+  - Step 3: Flattening
+```
+classifier.add(Flatten()) # Keras automatically know to flatten previous layer
+```
+  - Step 4: Full connection
+```
+classifier.add(Dense(output_dim = 128, # By experiment, we should choose number of nodes around 100
+                     activation = 'relu')) # Use rectifier activation function
+classifier.add(Dense(output_dim = 1, # By experiment, we should choose number of nodes around 100
+                     activation = 'sigmoid')) # Use sigmoid function because we have 1 output
+```
+- [Keras image preprocessing](https://keras.io/preprocessing/image/)
+- Fitting the CNN to the images
+```
+from keras.preprocessing.image import ImageDataGenerator
+
+train_datagen = ImageDataGenerator(
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+training_set = train_datagen.flow_from_directory(
+        'dataset/training_set', # change to your real traning image folder
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='binary') # We have two class CAT and DOG
+
+test_set = test_datagen.flow_from_directory(
+        'dataset/test_set', # change to your real traning image folder
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='binary')
+
+classifier.fit_generator(
+        training_set,
+        samples_per_epoch=8000,
+        epochs=25,
+        validation_data=test_set,
+        nb_val_samples=2000)
+```
