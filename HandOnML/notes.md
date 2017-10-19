@@ -1520,7 +1520,7 @@ classifier.fit_generator(
         nb_val_samples=2000)
 ```
 
-## Section 32: CNN in R
+# Section 32: CNN in R
 - Deep Water is a library in R that support CNN but it still in early stage.
 - R is an amazing programming language for highly advanced statistics, but when it comes to Deep Learning for Computer Vision, Python is more mature
 - Refs:
@@ -1528,3 +1528,14 @@ classifier.fit_generator(
     - [Deep Water](http://www.h2o.ai/deep-water/)
     - [CNN with h2o](https://community.h2o.ai/questions/452/rnncnn-with-h2o.html)
     - [Deep Water in GitHub](https://github.com/h2oai/deepwater)
+    
+# Section 33: Dimensionality Reduction
+- There are two types of Dimensionality Reduction techniques:
+    - Feature Selection
+    - Feature Extraction
+- Feature Selection techniques are Backward Elimination, Forward Selection, Bidirectional Elimination, Score Comparison and more
+- Feature Extraction techniques:
+    - Principal Component Analysis (PCA)
+    - Linear Discriminant Analysis (LDA)
+    - Kernel PCA
+    - Quadratic Discriminant Analysis (QDA)
