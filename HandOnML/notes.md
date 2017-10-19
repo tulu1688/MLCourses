@@ -1392,3 +1392,17 @@ Input image               Feature detector      Feature map
   0  1  0 -1  0
   0  0  0  0  0
   ```
+
+## Step 1b: ReLU layers
+- Relu layer help us filter values. For example, we filter all black pixels from image
+
+## Step 2: Pooling
+- Pooling -> __reduce number of parameters__
+- Some type of pooling:
+  - max pooling
+  - mean pooling
+  - average pooling
+  - min pooling
+- Pooling được áp dụng vào feature maps. Pooling đảm bảo khi hình ảnh xoay, nghiêng, thu hẹp (nói chung là nhiều hình dạng của ảnh) đểu có thể attract ra được đặc trưng cơ bản của feature map)
+- [Example for pooling visualisation](http://scs.ryerson.ca/~aharley/vis/conv/flat.html)
+- [link](http://ais.uni-bonn.de/papers/icann2010_maxpool.pdf)
