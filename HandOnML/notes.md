@@ -1244,7 +1244,7 @@ pip install --upgrade keras
 - We use `keras` in our example. By default, our `keras` using `Tensorflow` backend. if we need use `keras` with `Theano`, we need to manually config `keras`.
     - Use `Sequential` model to initialize our neural network
     - Use `Dense` model to build layers of our ANN
-``` 
+```
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
@@ -1252,7 +1252,7 @@ from keras.layers import Dense
 
 - Tips: By experiments `the number of nodes in hidden layers equal the average between input layer and output layer - Udemy Teacher`
 - If the output layer has more than 2 layers we should use the activation function is `submask` instead of `sigmoid`
-``` 
+```
 # Adding the input layer and first hidden layer
 classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layers equal average of node in both intput and output layers
                                      # Input layers: 11 nodes - 11 independent variables
@@ -1272,7 +1272,7 @@ classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layer
 classifier.add(Dense(output_dim = 1, # We have only 1 dependent variable
                      init = 'uniform',
                      activation = 'sigmoid')) # Use sigmoid function for output layer
-                     
+
 # Copy the ANN
 classifier.compile(optimizer = 'adam', # Optimizer is algorithm used to find initialized set-up weights
                                        # 'adam' is one of the effective stochastic gradient descend
@@ -1283,7 +1283,7 @@ classifier.compile(optimizer = 'adam', # Optimizer is algorithm used to find ini
 - When fitting the ANN with the training set using we need to specify 2 more parameters
     - batch_size (by default, the value is 32. We should choose smaller value. Maybe 10)
     - nb_epoch: number of epoch
-``` 
+```
 # Fitting the ANN to the Training set
 classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
 ```
@@ -1293,19 +1293,102 @@ classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
 - Using `h2o` package (the best package to build deep learning model in R)
     - It's opensource. Allow connect an instance of a computer system
     - Offers a lot of options to build deep learning modal
-``` 
+```
 install.packages('h2o')
 ```
-- Building ANN classifier with `h2o` with simple commands below
-``` 
+- Building ANN classifier with `h2o` with simple commands below.
+  - When use `h2o` library, we need to convert dataframe to h2o dataframe like `as.h2o(training_set)`
+```
 # Fitting ANN to the Traning set
 # install.packages('h2o')
-library(h2o)
+library(h2o)
 h2o.init(nthreads = -1)
 classifier = h2o.deeplearning(y = 'Exited',
                               training_frame = as.h2o(training_set), # convert dataframe to h2o training frame
                               activation = 'Rectifier',
                               hidden = c(2,6), # 2 hidden layers and each layer has 6 nodes
                               epochs = 100,
-                              train_samples_per_iteration = -2) # batch size will be auto tunned
+                              train_samples_pser_iteration = -2) # batch size will be auto tunned
 ```
+
+# Section 32: Convolutional neural network
+## Convolutional neural network
+- Convolutional = `tích chập`. Refs links:
+  - [link](https://www.stdio.vn/articles/read/386/phep-tich-chap-trong-xu-ly-anh-convolution)
+  - [youtube](https://www.youtube.com/watch?v=gFELyrIx010)
+- Usually using in image classification, use on car driving...
+- `Yann lecun` god father of `convolutional neural network`
+```
+Input image --> CNN --> Output label (image class)
+```
+
+## Step 1: Convolution function
+- Input image (as matrix of pixels) * Feature detector (kernel matrix) ==> Feature map
+- Ma trận kernel trượt qua ma trận ảnh -> tính ra ma trận tích chập. Sử dụng feature map cho phép tìm ra trong input image vùng thông tin có giá trị trùng lặp lớn nhất so với feature mask. Đó là cơ sở chính cho các thuật toán nhận dạng (ví dụ face detection trong ảnh facebook...). Ví dụ: vùng giống `feature detector` nhất cho giá trị lớn nhất trên `feature map`
+```
+Input image               Feature detector      Feature map
+
+0 0 0 0 0 0 0             0 0 1                 0 1 0 0 0
+
+0 1 0 0 0 1 0             1 0 0                 0 1 1 1 0
+
+0 0 0 0 0 0 0     (X)     0 1 1       (=)       1 0 1 2 1
+ |-----|                                         |-|
+0|0 0 1|0 0 0                                   1|4|2 1 0
+ |     |                                         |-|
+0|1 0 0|0 1 0                                   0 0 1 2 1
+ |     |
+0|0 1 1|0 0
+ |-----|
+0 0 0 0 0 0 0
+```
+- In convolutional neural network -> we create feature detectors to get multiple feature maps
+- We can use some specific of feature detectors to apply into image for bluring, sharpening ... For example
+  - Bluring with
+  ```
+  0  0  0  0  0
+  0  1  1  1  0
+  0  1  1  1  0
+  0  1  1  1  0
+  0  0  0  0  0
+  ```
+  - Sharpening
+  ```
+  0  0  0  0  0
+  0  0 -1  0  0
+  0 -1  5 -1  0
+  0  0 -1  0  0
+  0  0  0  0  0
+  ```
+  - Edge enhance
+  ```
+  0  0  0  0  0
+  0  0  0  0  0
+  0 -1  1  0  0
+  0  0  0  0  0
+  0  0  0  0  0
+  ```
+  - Edge detect ==> very importance feature for us to detect objects
+  ```
+  0  0  0  0  0
+  0  0  1  0  0
+  0  1 -4  1  0
+  0  0  1  0  0
+  0  0  0  0  0
+  ```
+  - Emboss
+  ```
+  0  0  0  0  0
+  0 -2 -1  0  0
+  0 -1  1  1  0
+  0  0  1  2  0
+  0  0  0  0  0
+  ```
+  - `Teacher favorite filter -> it creates cartoon effect :D`
+  ```
+  0  0  0  0  0
+  0  1  0 -1  0
+  0  2  0 -2  0
+  0  1  0 -1  0
+  0  0  0  0  0
+  ```
