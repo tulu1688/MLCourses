@@ -1519,3 +1519,12 @@ classifier.fit_generator(
         validation_data=test_set,
         nb_val_samples=2000)
 ```
+
+## Section 32: CNN in R
+- Deep Water is a library in R that support CNN but it still in early stage.
+- R is an amazing programming language for highly advanced statistics, but when it comes to Deep Learning for Computer Vision, Python is more mature
+- Refs:
+    - [h2o](http://www.h2o.ai/)
+    - [Deep Water](http://www.h2o.ai/deep-water/)
+    - [CNN with h2o](https://community.h2o.ai/questions/452/rnncnn-with-h2o.html)
+    - [Deep Water in GitHub](https://github.com/h2oai/deepwater)
