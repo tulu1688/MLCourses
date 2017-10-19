@@ -1251,7 +1251,7 @@ from keras.layers import Dense
 ```
 
 - Tips: By experiments `the number of nodes in hidden layers equal the average between input layer and output layer - Udemy Teacher`
-- If the output layer has more than 2 layers we should use the activation function is `submask` instead of `sigmoid`
+- If the output layer has more than 2 layers we should use the activation function is `softmax` instead of `sigmoid`
 ```
 # Adding the input layer and first hidden layer
 classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layers equal average of node in both intput and output layers
@@ -1406,3 +1406,47 @@ Input image               Feature detector      Feature map
 - Pooling được áp dụng vào feature maps. Pooling đảm bảo khi hình ảnh xoay, nghiêng, thu hẹp (nói chung là nhiều hình dạng của ảnh) đểu có thể attract ra được đặc trưng cơ bản của feature map)
 - [Example for pooling visualisation](http://scs.ryerson.ca/~aharley/vis/conv/flat.html)
 - [link](http://ais.uni-bonn.de/papers/icann2010_maxpool.pdf)
+
+## Step 3: Flattening
+- `Matrix` to `Array`. For example
+```
+1 1 0
+4 2 1    -->   1 1 0 4 2 1 0 2 1
+0 2 1
+```
+- After flattening we apply it as the input layer of a ANN
+
+## Step 4: Full connection
+- After convolutioning -> pooling -> flattening -> we use ANN to classify objects
+
+## Summary
+```
+             convolutional                         pooling                     flattening
+Input image       -->       convolutional layers     -->      pooling layer       -->     input layer of a future ANN
+             ReLU rectifier
+```
+
+## Softmax & Cross entropy
+- Softmax function: `f_j(z) = e^z_j / ∑_k e^z_k`
+- Cross entropy function: like `mean squared error` function in ANN, cross entropy is a way to compute loss (and maybe a loss function for CNN)
+- For example when compare two NN with value like belows
+  - NN1
+
+| Row | Dog^ | Cat^ | Dog | Cat |
+| --- |:----:|:----:|:---:|:---:|
+| #1  | 0.9  | 0.1  | 1   | 0   |
+| #2  | 0.1  | 0.9  | 0   | 1   |
+| #3  | 0.4  | 0.6  | 1   | 0   |
+
+  - NN2
+
+| Row | Dog^ | Cat^ | Dog | Cat |
+| --- |:----:|:----:|:---:|:---:|
+| #1  | 0.6  | 0.4  | 1   | 0   |
+| #2  | 0.3  | 0.7  | 0   | 1   |
+| #3  | 0.1  | 0.9  | 1   | 0   |
+
+  - Classification error: NN1 = NN2 = 0.33
+  - Mean squared error: NN1 = 0.25; NN2 = 0.71
+  - __Cross entropy: NN1 = 0.38; NN2 = 1.06__
+  - __Cross entropy__ is more effectively than __mean squared error__ function
