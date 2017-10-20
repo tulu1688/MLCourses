@@ -1528,7 +1528,7 @@ classifier.fit_generator(
     - [Deep Water](http://www.h2o.ai/deep-water/)
     - [CNN with h2o](https://community.h2o.ai/questions/452/rnncnn-with-h2o.html)
     - [Deep Water in GitHub](https://github.com/h2oai/deepwater)
-    
+
 # Section 33: Dimensionality Reduction
 - There are two types of Dimensionality Reduction techniques:
     - Feature Selection
@@ -1539,3 +1539,28 @@ classifier.fit_generator(
     - Linear Discriminant Analysis (LDA)
     - Kernel PCA
     - Quadratic Discriminant Analysis (QDA)
+
+# Section 34: Principal Component Analysis
+- In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean
+- PCA extracts the top principal components (independent variables). Top principal variables has the largest `varience`
+- `In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean`
+- After extracts these top principal components, we can easily visualize the results
+
+## PCA in python
+- Use `PCA` library from `sklearn.decomposition` packages to apply feature reduction
+```
+# Applying PCA
+# Snippest for show explained variance to get the top principal variables
+"""from sklearn.decomposition import PCA
+pca = PCA(n_components = None)  # to see the cumulative varient curve
+                                # We can specified our value: such as 2
+x_train = pca.fit_transform(X_train)
+x_test = pca.transform(X_test)
+explained_variance = pca.explained_variance_ratio_"""
+
+from sklearn.decomposition import PCA
+pca = PCA(n_components = 2) # We select 2 variables after investigate the `explained_variance`
+X_train = pca.fit_transform(X_train)
+X_test = pca.transform(X_test)
+explained_varience = pca.explained_variance_ratio_
+```
