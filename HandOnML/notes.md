@@ -1541,8 +1541,10 @@ classifier.fit_generator(
     - Quadratic Discriminant Analysis (QDA)
 
 # Section 34: Principal Component Analysis
-- In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean
-- PCA extracts the top principal components (independent variables). Top principal variables has the largest `varience`
+- From the `m` independent variables of the dataset, PCA extracts `p ≤ m` new independent variables that explain the most variance of the dataset, __regardless of the dependent variable__
+    - `Variance`: In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean
+    - The new `p` independent variables are not in the original independent variables. It's the main different of `Feature selection` and `Feature extraction`
+- PCA extracts the top principal components (independent variables). Top principal variables has the maximum `variance`
 - `In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean`
 - After extracts these top principal components, we can easily visualize the results
 
@@ -1562,5 +1564,18 @@ from sklearn.decomposition import PCA
 pca = PCA(n_components = 2) # We select 2 variables after investigate the `explained_variance`
 X_train = pca.fit_transform(X_train)
 X_test = pca.transform(X_test)
-explained_varience = pca.explained_variance_ratio_
+explained_variance = pca.explained_variance_ratio_
+```
+
+## PCA in R
+- Install `caret` library to do feature extraction in R
+```
+install.packages('caret')
+library(caret)
+
+pca = preProcess(x = training_set[-14],
+                 method = 'pca',
+                 pcaComp = 2)
+training_set = predict(pca, training_set)
+training_set = training_set[c(2,3,1)] # Move the dependent variable to the last column
 ```
