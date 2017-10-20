@@ -1579,3 +1579,17 @@ pca = preProcess(x = training_set[-14],
 training_set = predict(pca, training_set)
 training_set = training_set[c(2,3,1)] # Move the dependent variable to the last column
 ```
+
+# Section 35: Linear Discriminant Analysis (LDA)
+- From the `n` independent variables of your dataset, LDA extracts `p ≤ n` new independent variables that separate the most the classes of the dependent variable.
+
+## LDA in python
+- Use `LinearDiscriminantAnalysis` library from `sklearn.discriminant_analysis` to apply LDA
+```
+# Applying LDA
+# Snippest for show explained variance to get the top principal variables
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+lda = LDA(n_components = 2)
+x_train = lda.fit_transform(X_train, y_train) # LDA is a supervise model -> we need `fit_transform` with both X_train and y_train
+x_test = lda.transform(X_test)
+```

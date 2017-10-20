@@ -1,4 +1,4 @@
-# PCA
+# LDA
 
 # Importing the libraries
 import numpy as np
@@ -20,20 +20,12 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
-# Applying PCA
+# Applying LDA
 # Snippest for show explained variance to get the top principal variables
-"""from sklearn.decomposition import PCA
-pca = PCA(n_components = None)  # to see the cumulative varient curve
-                                # We can specified our value: such as 2
-X_train = pca.fit_transform(X_train)
-X_test = pca.transform(X_test)
-explained_variance = pca.explained_variance_ratio_"""
-
-from sklearn.decomposition import PCA
-pca = PCA(n_components = 2) # We select 2 variables after investigate the `explained_variance`
-X_train = pca.fit_transform(X_train)
-X_test = pca.transform(X_test)
-explained_varience = pca.explained_variance_ratio_
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+lda = LDA(n_components = 2)
+X_train = lda.fit_transform(X_train, y_train) # LDA is a supervise model -> we need `fit_transform` with both X_train and y_train
+X_test = lda.transform(X_test)
 
 # Fitting the Logistic Regression to Training set
 from sklearn.linear_model import LogisticRegression
@@ -60,8 +52,8 @@ for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
 plt.title('Logistic Regression (Training set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()
 
@@ -78,7 +70,7 @@ for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
 plt.title('Logistic Regression (Test set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()
