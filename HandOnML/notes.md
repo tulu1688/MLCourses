@@ -1547,6 +1547,8 @@ classifier.fit_generator(
 - PCA extracts the top principal components (independent variables). Top principal variables has the maximum `variance`
 - `In probability theory and statistics, variance is the expectation of the squared deviation of a random variable from its mean`
 - After extracts these top principal components, we can easily visualize the results
+- Ref:
+  - [Link](http://sebastianraschka.com/Articles/2014_python_lda.html)
 
 ## PCA in python
 - Use `PCA` library from `sklearn.decomposition` packages to apply feature reduction
@@ -1592,4 +1594,20 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 lda = LDA(n_components = 2)
 x_train = lda.fit_transform(X_train, y_train) # LDA is a supervise model -> we need `fit_transform` with both X_train and y_train
 x_test = lda.transform(X_test)
+```
+
+## LDA in R
+- Install `MASS` library to do feature extraction in R
+```
+# Applying LDA
+# install.packages('MASS')
+library(MASS)
+lda = lda(formula = Customer_Segment ~ .,
+          data = training_set)
+# We have 3 classes in Customer_Segment -> we got 3-1 = 2 discriminent
+# LDA required output data as a matrix
+training_set = as.data.frame(predict(lda, training_set))
+training_set = training_set[c(5,6,1)]
+test_set = as.data.frame(predict(lda, test_set))
+test_set = test_set[c(5,6,1)]
 ```
