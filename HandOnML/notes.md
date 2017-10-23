@@ -1680,3 +1680,31 @@ accuracies = cross_val_score(estimator = classifier,
 accuracies.mean()
 accuracies.std()
 ```
+
+## k-Fold Cross Validation in R
+- The accuracy we get for our model can be counted as the `mean` value of the accuracies we get after doing k-Fold
+- Install `caret` package to use the `lapply` function and implement `k-Fold Cross Validation`. The `lapply` ~ `list apply`
+```
+# install.packages('caret')
+
+library(caret)
+folds = createFolds(training_set$Purchased,
+                    k = 10) # Number of folds
+# lapply: list apply
+cv = lapply(folds, function(x) {
+  training_fold = training_set[-x, ]
+  test_fold = training_set[x, ]
+
+  classifier = svm(formula = Purchased ~ .,
+                   data = training_fold,
+                   type = 'C-classification',
+                   kernel = 'radial')
+
+  y_pred = predict(classifier, newdata = test_fold[-3])
+  cm = table(test_fold[, 3], y_pred)
+  accuracy = (cm[1,1] + cm[2,2]) / (cm[1,2] + cm[2,1] + cm[1,1] + cm[2,2])
+  return(accuracy)
+})
+mean(as.numeric(cv))
+```
+-
