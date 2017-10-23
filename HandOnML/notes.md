@@ -1742,3 +1742,9 @@ classifier = train(form = Purchased ~ .,
                    )
 classifier$bestTune
 ```
+
+# Section 39: XGBoots
+- One of the most popular algorithm in machine-learning
+- XGBoots has 3 quality: high performance, fast execution speed, we can keep all the interpretation of our problem
+- No need to implement `feature scaling` in `XGBoots`
+- [Install XGBoots](http://xgboost.readthedocs.io/en/latest/build.html)
