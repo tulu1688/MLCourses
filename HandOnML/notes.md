@@ -1643,3 +1643,15 @@ X_test = k_pca.transform(X_test)
 ```
 
 ## Kernel PCA in R
+- install `kernlab` to implement `kernel PCA` in R
+- Specify the kernel function like we did in `svm`
+```
+# install.packages('kernlab')
+
+library(kernlab)
+k_pca = kpca(~., data = training_set[-3], kernel = 'rbfdot', features = 2)
+training_set_pca = as.data.frame(predict(k_pca, training_set))
+training_set_pca$Purchased = training_set$Purchased
+test_set_pca = as.data.frame(predict(k_pca, test_set))
+test_set_pca$Purchased = test_set$Purchased
+```
