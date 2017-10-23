@@ -1707,4 +1707,26 @@ cv = lapply(folds, function(x) {
 })
 mean(as.numeric(cv))
 ```
--
+
+## Grid search in Python
+- How do I know which model to choose? Which model is the best one? ==> `Grid search` help us to find the best parameters -> `optimal parameters`
+- Using `GridSearchCV` library from `sklearn.model_selection` to implement `Grid search`
+- We have to build a dictionary of parameters and pass it as `param_grid` parameter of `GridSearchCV` function
+```
+from sklearn.model_selection import GridSearchCV
+parameters = [{'C': [1, 10, 100, 1000], 'kernel': ['linear']},
+              {'C': [1, 10, 100, 1000], 'kernel': ['rbf'], 'gamma': [0.5, 0.1, 0.01, 0.001]},
+              {'C': [1, 10, 100, 1000], 'kernel': ['sigmoid'], 'gamma': [0.5, 0.1, 0.01, 0.001]},
+              {'C': [1, 10, 100, 1000], 'kernel': ['poly'], 'degree': [2, 3, 4, 5]}
+             ]
+grid_search = GridSearchCV(estimator = classifier,
+                           param_grid = parameters,
+                           scoring = 'accuracy', # specify the performance metric
+                           cv = 10 # Number of folds (similar to k-Fold)
+                           )
+grid_search = grid_search.fit(X_train, y_train)
+best_accuracy = grid_search.best_score_
+best_parameters = grid_search.best_params_
+```
+
+## Grid search in R
