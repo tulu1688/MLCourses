@@ -43,7 +43,7 @@ print(tpr)
 # Visualizing the ROC curve
 plt.figure()
 lw = 2
-plt.plot(fpr, tpr, color='darkorange',
+plt.plot(fpr, tpr, color='red',
          lw=lw, label='ROC curve (area = %0.2f)' % auc(fpr, tpr))
 plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
 plt.xlim([0.0, 1.0])

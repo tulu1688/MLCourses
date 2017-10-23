@@ -1628,8 +1628,18 @@ test_set = test_set[c(5,6,1)]
 
 # Section 36: Kernel PCA
 - Kernel PCA is a `kernelization version of PCA`
+- Kernel PCA use kernel trick to convert data from original form to new data in a higher dimension to avoid too highly compute intensive computation.
 
 ## Kernel PCA in python
-
+- Use `KernelPCA` library from `sklearn.decomposition` to apply Kernel PCA
+- Use `KernelPCA` like `PCA` but we put one more feature called `kernel`. Use this parameter like we used in `Kernel SVM`
+```
+# Applying Kernel PCA
+from sklearn.decomposition import KernelPCA
+k_pca = KernelPCA(n_components = 2, # We select 2 variables after investigate the `explained_variance`
+                  kernel = 'rbf') # We can use the kernel same like we did with Kernel SVM
+X_train = k_pca.fit_transform(X_train)
+X_test = k_pca.transform(X_test)
+```
 
 ## Kernel PCA in R
