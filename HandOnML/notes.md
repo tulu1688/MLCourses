@@ -1655,3 +1655,28 @@ training_set_pca$Purchased = training_set$Purchased
 test_set_pca = as.data.frame(predict(k_pca, test_set))
 test_set_pca$Purchased = test_set$Purchased
 ```
+
+# Section 37: Model Selection & Boosting
+- Some questions after building our model are:
+  - How to deal with the bias variance tradeoff when building a model and evaluating its performance ?
+  - How to choose the optimal values for the hyperparameters (the parameters that are not learned) ?
+  - How to find the most appropriate Machine Learning model for my business problem ?
+- There's some techniques that do the `Model selection`:
+  - k-Fold Cross Validation
+  - Grid Search
+
+# Section 38: Model Selection
+## k-Fold Cross Validation in Python
+- k-Fold split the training set to 10 folds. Train the model in the 9 folds and test in the last remaining fold -> There will be 10 combinations of training and testing folds.
+- The accuracy we get for our model can be counted as the `mean` value of the accuracies we get after doing k-Fold
+- Using `cross_val_score` library from `sklearn.model_selection` to apply `k-Fold`
+```
+# Applying k-Fold Cross Validation
+from sklearn.model_selection import cross_val_score
+accuracies = cross_val_score(estimator = classifier,
+                             X = X_train,
+                             y = y_train,
+                             cv = 10) # Number of folds
+accuracies.mean()
+accuracies.std()
+```
