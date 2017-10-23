@@ -28,6 +28,32 @@ classifier.fit(X_train, y_train)
 # Predict the Test set result
 y_pred = classifier.predict(X_test)
 
+# Computing the ROC curve
+from sklearn.metrics import roc_curve, auc
+
+y_pred_score = classifier.predict_proba(X_test)[:,1]
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_score, pos_label = 1)
+print('Thresholds:')
+print(thresholds)
+print('False Positive Rate:')
+print(fpr)
+print('True Positive Rate:')
+print(tpr)
+
+# Visualizing the ROC curve
+plt.figure()
+lw = 2
+plt.plot(fpr, tpr, color='darkorange',
+         lw=lw, label='ROC curve (area = %0.2f)' % auc(fpr, tpr))
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver operating characteristic example')
+plt.legend(loc="lower right")
+plt.show()
+
 # Making the confusion matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)

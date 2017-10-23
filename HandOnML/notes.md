@@ -722,10 +722,24 @@ Accuracy rate: AR = 9850 / 10000 = 98.5%
 3. Conclusion
 - The accuracy rate in second scenario is better than in first scenario. But the model in second scenario is not better. It's worst, because no True value predicted.
 - The accuracy rate is not really good to determine a model is good or not
+
 ## CAP curve
 - CAP: Cumulative Accuracy Profile
 - ROC: Receiver Operating Characteristic
 - Actually dont really know CAP well
+
+## ROC curve
+- [Mục 4.2 - Receiver Operating Characteristic curve](https://machinelearningcoban.com/2017/08/31/evaluation/#-truefalse-positivenegative)
+- Trong một số bài toán, việc tăng hay giảm FNR, FPR có thể được thực hiện bằng việc thay đổi một ngưỡng (threshold) nào đó. Lấy ví dụ khi ta sử dụng thuật toán Logistic Regression, đầu ra của mô hình có thể là các lớp cứng 0 hay 1, hoặc cũng có thể là các giá trị thể hiện xác suất để dữ liệu đầu vào thuộc vào lớp 1. Khi sử dụng thư viện sklearn Logistic Regression, ta có thể lấy được các giá trị xác xuất này bằng phương thức predict_proba(). Mặc định, ngưỡng được sử dụng là 0.5, tức là một điểm dữ liệu x sẽ được dự đoán rơi vào lớp 1 nếu giá trị predict_proba(x) lớn hơn 0.5 và ngược lại.
+- Nếu bây giờ ta coi lớp 1 là lớp Positive, lớp 0 là lớp Negative, câu hỏi đặt ra là làm thế nào để tăng mức độ báo nhầm (FPR) để giảm mức độ bỏ sót (FNR)? Chú ý rằng tăng FNR đồng nghĩa với việc giảm TPR vì tổng của chúng luôn bằng 1.
+- Một kỹ thuật đơn giản là ta thay giá trị threshold từ 0.5 xuống một số nhỏ hơn. Chẳng hạn nếu chọn threshold = 0.3, thì mọi điểm được dự đoán có xác suất đầu ra lớn hơn 0.3 sẽ được dự đoán là thuộc lớp Positive. Nói cách khác, tỉ lệ các điểm được phân loại là Positive sẽ tăng lên, kéo theo cả False Positive Rate và True Positive Rate cùng tăng lên (cột thứ nhất trong ma trận tăng lên). Từ đây suy ra cả FNR và TNR đều giảm.
+- Ngược lại, nếu ta muốn bỏ sót còn hơn báo nhầm, tất nhiên là ở mức độ nào đó, như bài toán xác định email rác chẳng hạn, ta cần tăng threshold lên một số lớn hơn 0.5. Khi đó, hầu hết các điểm dữ liệu sẽ được dự đoán thuộc lớp 0, tức Negative, và cả TNF và FNR đều tăng lên, tức TPR và FPR giảm xuống.
+- Như vậy, ứng với mỗi giá trị của threshold, ta sẽ thu được một cặp (FPR, TPR). Biểu diễn các điểm (FPR, TPR) trên đồ thị khi thay đổi threshold từ 0 tới 1 ta sẽ thu được một đường được gọi là Receiver Operating Characteristic curve hay ROC curve. (Chú ý rằng khoảng giá trị của threshold không nhất thiết từ 0 tới 1 trong các bài toán tổng quát. Khoảng giá trị này cần được đảm bảo có trường hợp TPR/FPR nhận giá trị lớn nhất hay nhỏ nhất mà nó có thể đạt được)
+
+## More docs
+- [Evaluating classification models](https://machinelearningcoban.com/2017/08/31/evaluation/#-truefalse-positivenegative)
+- [TiepVuSu github](https://github.com/tiepvupsu/tiepvupsu.github.io/blob/master/assets/33_evaluation/python/Evaluation%20methods.ipynb)
+
 ## Conclusion of Part 3 - Classification
 - Choose model
     - If your problem is linear, you should go for Logistic Regression or SVM.
@@ -1611,3 +1625,11 @@ training_set = training_set[c(5,6,1)]
 test_set = as.data.frame(predict(lda, test_set))
 test_set = test_set[c(5,6,1)]
 ```
+
+# Section 36: Kernel PCA
+- Kernel PCA is a `kernelization version of PCA`
+
+## Kernel PCA in python
+
+
+## Kernel PCA in R
