@@ -1730,3 +1730,15 @@ best_parameters = grid_search.best_params_
 ```
 
 ## Grid search in R
+- Install `caret` package to implement `Grid search` in R
+- For parameters tuning -> we should build `caret` package
+```
+# Applying Grid Search to find the best parameters
+# install.packages('caret')
+library(caret)
+classifier = train(form = Purchased ~ .,
+                   data = training_set,
+                   method = 'svmRadial' # Avaiable methods: https://topepo.github.io/caret/available-models.html
+                   )
+classifier$bestTune
+```
