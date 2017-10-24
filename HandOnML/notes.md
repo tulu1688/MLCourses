@@ -275,7 +275,7 @@ b1, b2, ..., bn: coeficients
         - FINISH: Our modal is ready
     5. Score comparison (All possible modal)
         - Step 1: Select a criterion of goodness of fit
-        - Step 2: Construct all possible regression modals: 2^n -1 total combination
+        - Step 2: Construct all possible regression modals: 2<sup>n</sup> -1 total combination
         - Step 3: Select the one with best criterion
         - FINISH: we have the modal
         - __-> Not good approach because if we have 10 variables -> we need to try 1023 possible modal__
@@ -319,6 +319,7 @@ regressor_OLS.summary()
 ```
 ## Backward elimination in R
 - We still use `lm` function to do regression in R. But the `summary` function can show the statistically significant result
+
 ```
 # Building the optimal model using Backward Elimination
 regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State,
@@ -340,10 +341,7 @@ summary(regressor)
 
 # Section 6: Polynomial linear regression
 ## Polynomial linear regression intuition
-- Equation:
-```
-y = b0 + b1*x1 + b2*x1^2 + ... + bn*b1^n
-```
+- Equation: __y = b0 + b1*x1 + b2*x1<sup>2</sup> + ... + bn*b1<sup>n</sup>__
 - We still call the equation is a linear because the coefficient is `Linear`
 - The model is `linear` when the equation has `linear` coefficients
 ## Polynomial linear regression in Python
@@ -463,6 +461,7 @@ R^2 = 1 - SSres/SStotal
 - R^2 closer to 1, better our model. `Greater is better`
 - Khi càng thêm predictor vào biểu thức của model -> R^2 sẽ càng giảm.
     - Ví dụ dataset có 5 independence variable. Dùng 4 independence variable có Rsquare lớn hơn dùng 5.
+
 ## Ajusted R-Squared intuition
 - Relearn
 ```
@@ -470,7 +469,7 @@ Adj R^2 = 1 - (1-R^2)*(n-1)/(n-p-1)
 p: Number of regressor
 n: sample size
 ```
--
+
 ## Evaluating Regression Models Performance
 
 __Example__ givens the model equations and the Adjusted R squared
@@ -494,8 +493,8 @@ __Model 3__ là tốt nhất vì có Adjusted R squared lớn nhất.
 
 # Section 12: Logistic regression
 ## Logistic regression intuition
-- sigmoid function: `p = 1 / (1 + e^(-y))`
-- We use sigmoid function because `ln(p/(1-p)) = b0 + b1*x`
+- sigmoid function: ___p = 1 / (1 + e<sup>-y</sup>)___
+- We use sigmoid function because ___ln(p/(1-p)) = b0 + b1*x___
 - Use logistic regression to predict probability
 ## Logistic regression in python
 - Remember to do the feature scaling
@@ -521,6 +520,7 @@ classifier = glm(formula = Purchased ~ .,
                  family = binomial,
                  data = training_set)
 ```
+
 - Predicting with logistic regression
 ```
 # Predicting the Test set results
@@ -531,6 +531,7 @@ y_pred = ifelse(prob_pred > 0.5, 1, 0)
 # Making the confusion matrix
 cm = table(test_set[,3], y_pred)
 ```
+
 - Install package `Elemstatlearn` to visualing the data
 ```
 install.packages('ElemStatLearn')
@@ -547,6 +548,7 @@ install.packages('ElemStatLearn')
 
 ## K-NN classification in Python
 - Use `KNeighborsClassifier` from `sklearn.neighbors` to implement K-NN in python
+
 ```
 # Fitting the K-NN classifier to Training set
 from sklearn.neighbors import KNeighborsClassifier
@@ -555,8 +557,10 @@ classifier = KNeighborsClassifier(n_neighbors = 5,
                                   p = 2)
 classifier.fit(X_train, y_train)
 ```
+
 ## K-NN classification in R
 - Use `class` library in R to implement K-NN
+
 ```
 library(class)
 y_pred = knn(train = training_set[,1:2],
@@ -571,6 +575,7 @@ y_pred = knn(train = training_set[,1:2],
 
 ## SVM classification in Python
 - Using `SVC` sub library in `sklearn.svm` to implement SVM classification
+
 ```
 from sklearn.svm import SVC
 # We can test some type of kernel to get the best kernel here
@@ -579,9 +584,11 @@ from sklearn.svm import SVC
 classifier = SVC(kernel = 'linear', random_state = 0)
 classifier.fit(X_train, y_train)
 ```
+
 ## SVM classification in R
 - Install `e1071` library to implement SVM classification
 - Fit the classifier to the Training set
+
 ```
 library(e1071)
 classifier = svm(formula = Purchased ~ .,
@@ -589,21 +596,19 @@ classifier = svm(formula = Purchased ~ .,
                  type = 'C-classification',
                  kernel = 'linear')
 ```
+
 - Predicting the Test set results
+
 ```
 y_pred = predict(classifier, newdata = test_set[,1:2])
 ```
 
 # Section 15: Kernel SVM
 - Kernel function help SVM find the decision boundary
-- The Gaussian RBF (Radial based function) Kernel
-```
-K(x,li) = e^(-abs(x-li)^2/(2σ^2))
-
-- li: landmark point
-- x: training set point
-```
-- Types most used of kernel functions:
+- The Gaussian RBF (Radial based function) Kernel: ___K(x,li) = e<sup>(-abs(x-li)^2/(2σ^2))</sup>___
+    - li: landmark point
+    - x: training set point
+- Theses types are mostly used of kernel functions:
     - Gaussian RBF kernel
     - Sigmoid kernel
     - Polynomial kernel
@@ -613,21 +618,26 @@ K(x,li) = e^(-abs(x-li)^2/(2σ^2))
 ```
 P(A|B) = P(B|A)*P(A)/P(B)
 ```
+
 ## Naive Bayes classification in Python
 - Using `GaussianNB` in `sklearn.naive_bayes` library to implement NaiveBayes classification
+
 ```
 from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
 classifier.fit(X_train, y_train)
 ```
+
 ## Naive Bayes classification in R
 - Install `e1071` library to use `Naive Bayes` classification
 - Function `naiveBayes`
 - In NaiveBayes in R we need to encoding the target feature as factor (smth like categorical variables)
 
 # Section 17: Decision Tree Classification
+
 ## Decision Tree Classification in Python
 - use `DecisionTreeClassifier` in `sklearn.tree` to implement decision tree classification
+
 ```
 from sklearn.tree import DecisionTreeClassifier
 classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
@@ -636,10 +646,13 @@ classifier.fit(X_train, y_train)
 
 ## Decision Tree Classification in R
 - In `Decision Tree Classification` in R we need to encoding the target feature as factor (smth like categorical variables)
+
 ```
 dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
 ```
+
 - Use `rpart` function to implement decision tree clasification
+
 ```
 # install.packages('rpart')
 library(rpart)
@@ -649,15 +662,19 @@ classifier = rpart(formula = Purchased ~ .,
 # Predicting the Test set results
 y_pred = predict(classifier, newdata = test_set[,1:2], type = 'class')
 ```
+
 - Remember to use `type = 'class'`, rpart will know that we need to use it's classification feature
 
 
 # Section 18: Random Forest Classification
+
 ## Random forest classification intuition
 - Random forest is an ensemble learning method by containing numbers of decision tree classification
 - Random forest usually is used in detect people movement
+
 ## Random forest classification in Python
 - Use `RandomForestClassification` in `sklearn.ensemble`
+
 ```
 # Fitting the classifier to Training set
 from sklearn.ensemble import RandomForestClassifier
@@ -669,16 +686,22 @@ classifier.fit(X_train, y_train)
 # Predict the Test set result
 y_pred = classifier.predict(X_test)
 ```
+
 ## Random forest classification in R
 - Intall `randomForest` package to run classification
+
 ```
 install.packages('randomForest')
 ```
+
 - Remember to encode the target feature as factor (smth like categorical variables)
+
 ```
 dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
 ```
+
 - Remember to select the ntree = number of tree of decision tree
+
 ```
 library(randomForest)
 classifier = randomForest(x = training_set[,1:2],
@@ -702,6 +725,7 @@ cm = table(test_set[,3], y_pred)
 - F1 Score = 2 * Precision * Recall / (Precision + Recall)
 ## Accuracy paradox
 1. First scenario
+
 ```
     Predicted
      0     1
@@ -709,8 +733,10 @@ cm = table(test_set[,3], y_pred)
 0 | 9700   150
 1 |  50    100
 ```
+
 Accuracy rate: AR = (9700 + 100) / 10000 = 98%
 2. Second scenario
+
 ```
     Predicted
      0     1
@@ -718,6 +744,7 @@ Accuracy rate: AR = (9700 + 100) / 10000 = 98%
 0 | 9850   0
 1 |  150   0
 ```
+
 Accuracy rate: AR = 9850 / 10000 = 98.5%
 3. Conclusion
 - The accuracy rate in second scenario is better than in first scenario. But the model in second scenario is not better. It's worst, because no True value predicted.
@@ -771,6 +798,7 @@ Accuracy rate: AR = 9850 / 10000 = 98.5%
 ## K-means in python
 - First we need to compute WCSS for each number of clusters and draw the "Elbow model" chart. Select the number of cluster in corner of our elbow
 - Using `KMeans` from `sklearn.cluster` to cluster
+
 ```
 from sklearn.cluster import KMeans
 wcss = []
@@ -789,6 +817,7 @@ plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
 plt.show()
 ```
+
 - Parameters of KMeans
     - n_clusters: number of clusters
     - init: 'k-means++' help us not falling into random initialization trap
@@ -796,6 +825,7 @@ plt.show()
 
 ## K-means in R
 - First we need to compute WCSS for each number of clusters and draw the "Elbow model" chart. Select the number of cluster in corner of our elbow
+
 ```
 # Using the elbow method to find the optimal number of clusters
 wcss <- vector()
@@ -804,8 +834,10 @@ plot(1:10, wcss, type = 'b', main = paste('Clusters of clients'),
      xlab = 'Number of clusters',
      ylab = 'WCSS')
 ```
+
 - Use `kmeans` function to clustering
 - Use clusplot to draw kmeans clusters
+
 ```
 kmeans <- kmeans(X, 5, iter.max = 300, nstart = 10)
 
@@ -845,6 +877,7 @@ clusplot(X,
 
 ## Hierarchical clustering in Python
 - Using `scipy.cluster.hierarchy` to create dendogram
+
 ```
 # Using the dendogram to find the optimal number of clusters
 import scipy.cluster.hierarchy as sch
@@ -854,14 +887,17 @@ plt.xlabel('Customers')
 plt.ylabel('Euclidean distance')
 plt.show()
 ```
+
 - User `AgglomerativeClustering` from `sklearn.cluster` to clustering
 ```
 from sklearn.cluster import AgglomerativeClustering
 hc = AgglomerativeClustering(n_clusters = 5, affinity = 'euclidean', linkage = 'ward')
 y_hc = hc.fit_predict(X)
 ```
+
 ## Hierarchical clustering in R
 - Using dendogram to find the optimal number of clusters
+
 ```
 dendogram = hclust(dist(X, method = 'euclidean'), method = 'ward.D')
 plot(dendogram,
@@ -869,6 +905,7 @@ plot(dendogram,
     xlab = 'Customers',
     ylab = 'Euclidean distances')
 ```
+
 - Using `cutree` function for `hierarchical model` to clustering
 ```
 # Fitting the hierarchical clustering to mall dataset
@@ -879,6 +916,7 @@ y_hc = cutree(hc, 5)
 # Section 22_b: DBScan
 ## DBScan in python
 - Using `sklearn.cluster.DBSCAN` to cluster
+
 ```
 # Using dbscan to find frequent data zones
 from sklearn.cluster import DBSCAN
@@ -890,10 +928,12 @@ dbscan.fit(X)
 # Applying dbscan to the mall dataset
 y_dbscan = dbscan.fit_predict(X)
 ```
+
 - Some case we should do feature scaling when use euclidean distance
 ## DBScan in R
 - Install 'fpc' package to do dbscaling
 - We can do feature scaling because the distance metric is 'euclidean'
+
 ```
 # Using "fpc" library to clustering with dbscan
 # install.packages("fpc")
@@ -1056,6 +1096,7 @@ inspect(sort(rules, by = 'support')[1:10])
 - [Beta distribution vs normal distribution](https://www.quora.com/What-are-the-key-differences-between-normal-distribution-and-beta-distribution)
 
 ## Comparison between UCB vs Thompson sampling
+
 |UCB|Thompson sampling|
 |---|---|
 |Deterministic|Probabilistic|
@@ -1077,6 +1118,7 @@ inspect(sort(rules, by = 'support')[1:10])
     - Remove stop words. Import the `stopwords` from `nltk.corpus`
     - Do stemming. Ex: `loved` -> `love`
     - Joining back the string
+
 ```
 # Cleaning the texts
 import re
@@ -1095,6 +1137,7 @@ for i in range(0,1000):
     review = ' '.join(review)
     corpus.append(review)
 ```
+
 - Step 3: Creating the Bag of Words model
     - We tokenization the words
     - Each word will be an independence variables
@@ -1102,11 +1145,13 @@ for i in range(0,1000):
     - `countVectorizer` also have cleaning text feature but we should do it manually for support more options and more controls
     - `countVectorizer` parameters:
         - max_features: use most frequent words
+
 ```
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
 ```
+
 - Step 4: classification
     - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__
 
@@ -1115,6 +1160,7 @@ X = cv.fit_transform(corpus).toarray()
 ```
 dataset_original = read.delim('Restaurant_Reviews.tsv', quote = '', stringsAsFactors = FALSE)
 ```
+
 - Step 2: Cleaning the texts. Install `tm` package to `cleaning the texts`
     - Change text into lowercase
     - Remove numbers
@@ -1122,6 +1168,7 @@ dataset_original = read.delim('Restaurant_Reviews.tsv', quote = '', stringsAsFac
     - Remove stop words. Install `SnowballC` package to use `stopwords` function
     - Do stemming. Ex: `loved` -> `love`
     - Remove extra spaces
+
 ```
 # Cleaning the texts
 # install.packages('tm')
@@ -1136,15 +1183,18 @@ corpus = tm_map(corpus, removeWords, stopwords())
 corpus = tm_map(corpus, stemDocument)
 corpus = tm_map(corpus, stripWhitespace)
 ```
+
 - Step 3: Creating the Bag of Words model
     - We tokenization the words
     - Each word will be an independence variables
     - Use `DocumentTermMatrix` function to tokenize corpus
+
 ```
 # Creating the Bag of Words model
 dtm = DocumentTermMatrix(corpus)
 dtm = removeSparseTerms(dtm, 0.999)
 ```
+
 - Step 4: classification
     - we can choose to best options for NLP: __decision tree (or random forest) and naive bayes__
 
@@ -1173,6 +1223,7 @@ dtm = removeSparseTerms(dtm, 0.999)
     - Dendrites: receiver for the signal
     - Axon: transmitter for the signal
 - Basically the neuron get signal from other neurons
+
 ```
 Input signal 1 --
                   >
@@ -1180,16 +1231,21 @@ Input signal 2 ---> Neuron -> Output
       ...         >
 Input signal m --
 ```
+
 ##The activation function
 - Threshold function
+
 ```
 θ(x) = 1 if x≥0
        0 if x<0
 ```
+
 - Sigmoid function
+
 ```
 θ(x) = 1 / (1 + e^(-x))
 ```
+
 - Rectifier function (King of functions, one of the most functions in Neural network)
 ```
 θ(x) = max(x,0)
@@ -1198,6 +1254,7 @@ Input signal m --
 ```
 θ(x) = (1-e^(-2x)) / (1+e^(-2x))
 ```
+
 - Assuming the dependent variables is binary (0 or 1) we can choose:
     - threshold activation function
     - sigmoid activation function
@@ -1211,6 +1268,7 @@ X2 ---> ∑(w_i * x_i) -> y^
  ... >
 Xm --
 ```
+
 - Given a initial values of weight (W1, W2, W3, ... Wm)
 - The NN compute the output values y^ and the cost value: `C = 0.5 * ∑(y^ - y) ^ 2`
 - Then, the NN adjusts W_1, W_2, ... W_m to minimize the cost value `C`
@@ -1233,10 +1291,12 @@ Xm --
 ```
 pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
 ```
+
 - `Tensorflow` opensource numerical computation library, can run in GPU. Developed originally by Google but now it is a Apache project. There's some ways to install `tensorflow`
   - From a docker
   - From a virtual machine
   - Anaconda intergrated version. Follow [link](https://www.tensorflow.org/install/install_mac#installing_with_anaconda)
+
 ```
 Step 1: Install anaconda
 Step 2: Create a conda environment named tensorflow
@@ -1247,7 +1307,9 @@ Step 4: Issue a command of the following format to install TensorFlow inside you
   pip install --ignore-installed --upgrade TF_PYTHON_URL
   pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.3.0-py3-none-any.whl
 ```
+
 - `Keras` is an amazing library to build deep learning model. Build by a machine learning scientist at Google.
+
 ```
 pip install --upgrade keras
 ```
@@ -1258,6 +1320,7 @@ pip install --upgrade keras
 - We use `keras` in our example. By default, our `keras` using `Tensorflow` backend. if we need use `keras` with `Theano`, we need to manually config `keras`.
     - Use `Sequential` model to initialize our neural network
     - Use `Dense` model to build layers of our ANN
+
 ```
 import keras
 from keras.models import Sequential
@@ -1266,6 +1329,7 @@ from keras.layers import Dense
 
 - Tips: By experiments `the number of nodes in hidden layers equal the average between input layer and output layer - Udemy Teacher`
 - If the output layer has more than 2 layers we should use the activation function is `softmax` instead of `sigmoid`
+
 ```
 # Adding the input layer and first hidden layer
 classifier.add(Dense(output_dim = 6, # Tips: choose node numbers of hidden layers equal average of node in both intput and output layers
@@ -1294,9 +1358,11 @@ classifier.compile(optimizer = 'adam', # Optimizer is algorithm used to find ini
                    metrics=['accuracy']
                    )
 ```
+
 - When fitting the ANN with the training set using we need to specify 2 more parameters
     - batch_size (by default, the value is 32. We should choose smaller value. Maybe 10)
     - nb_epoch: number of epoch
+
 ```
 # Fitting the ANN to the Training set
 classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
@@ -1307,11 +1373,14 @@ classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
 - Using `h2o` package (the best package to build deep learning model in R)
     - It's opensource. Allow connect an instance of a computer system
     - Offers a lot of options to build deep learning modal
+
 ```
 install.packages('h2o')
 ```
+
 - Building ANN classifier with `h2o` with simple commands below.
   - When use `h2o` library, we need to convert dataframe to h2o dataframe like `as.h2o(training_set)`
+
 ```
 # Fitting ANN to the Traning set
 # install.packages('h2o')
@@ -1334,6 +1403,7 @@ classifier = h2o.deeplearning(y = 'Exited',
   - [youtube](https://www.youtube.com/watch?v=gFELyrIx010)
 - Usually using in image classification, use on car driving...
 - `Yann lecun` god father of `convolutional neural network`
+
 ```
 Input image --> CNN --> Output label (image class)
 ```
@@ -1341,6 +1411,7 @@ Input image --> CNN --> Output label (image class)
 ## Step 1: Convolution function
 - Input image (as matrix of pixels) * Feature detector (kernel matrix) ==> Feature map
 - Ma trận kernel trượt qua ma trận ảnh -> tính ra ma trận tích chập. Sử dụng feature map cho phép tìm ra trong input image vùng thông tin có giá trị trùng lặp lớn nhất so với feature mask. Đó là cơ sở chính cho các thuật toán nhận dạng (ví dụ face detection trong ảnh facebook...). Ví dụ: vùng giống `feature detector` nhất cho giá trị lớn nhất trên `feature map`
+
 ```
 Input image               Feature detector      Feature map
 
@@ -1358,6 +1429,7 @@ Input image               Feature detector      Feature map
  |-----|
 0 0 0 0 0 0 0
 ```
+
 - In convolutional neural network -> we create feature detectors to get multiple feature maps
 - We can use some specific of feature detectors to apply into image for bluring, sharpening ... For example
   - Bluring with
@@ -1443,12 +1515,12 @@ Input image       -->       convolutional layers     -->      pooling layer     
 ```
 
 ## Softmax & Cross entropy
-- Softmax function: `f_j(z) = e^z_j / ∑_k e^z_k`
+- Softmax function: ___f<sub>j</sub>(z) = e<sup>z</sup><sub>j</sub> / ∑<sub>k</sub> e<sup>z</sup><sub>k</sub>___
 - Cross entropy function: like `mean squared error` function in ANN, cross entropy is a way to compute loss (and maybe a loss function for CNN)
 - For example when compare two NN with value like belows
   - NN1
 
-| Row | Dog^ | Cat^ | Dog | Cat |
+| Row | Dog<sup>^</sup> | Cat<sup>^</sup> | Dog | Cat |
 | --- |:----:|:----:|:---:|:---:|
 | #1  | 0.9  | 0.1  | 1   | 0   |
 | #2  | 0.1  | 0.9  | 0   | 1   |
@@ -1456,7 +1528,7 @@ Input image       -->       convolutional layers     -->      pooling layer     
 
   - NN2
 
-| Row | Dog^ | Cat^ | Dog | Cat |
+| Row | Dog<sup>^</sup> | Cat<sup>^</sup> | Dog | Cat |
 | --- |:----:|:----:|:---:|:---:|
 | #1  | 0.6  | 0.4  | 1   | 0   |
 | #2  | 0.3  | 0.7  | 0   | 1   |
