@@ -341,7 +341,7 @@ summary(regressor)
 
 # Section 6: Polynomial linear regression
 ## Polynomial linear regression intuition
-- Equation: __y = b0 + b1*x1 + b2*x1<sup>2</sup> + ... + bn*b1<sup>n</sup>__
+- Equation: __y = b<sub>0</sub> + b<sub>1</sub>*x<sub>1</sub> + b<sub>2</sub>*x<sub>1</sub><sup>2</sup> + ... + b<sub>n</sub>*x<sub>1</sub><sup>n</sup>__
 - We still call the equation is a linear because the coefficient is `Linear`
 - The model is `linear` when the equation has `linear` coefficients
 ## Polynomial linear regression in Python
@@ -454,11 +454,12 @@ regressor = randomForest(x = dataset[1], # dataframe
 # Section 10: Evaluating regression models performance
 ## R-squared intuition
 ```
-SSres = (yi - yi^)^2 -> min (SSres: sum of squared residual)
-SStotal = (yi - yavg)^2 -> (SStotal: total sum of squared)
-R^2 = 1 - SSres/SStotal
+SSres = (yi - yi^)2 -> min (SSres: sum of squared residual)
+SStotal = (yi - yavg)2 -> (SStotal: total sum of squared)
+R<sup>2</sup> = 1 - SSres/SStotal
 ```
-- R^2 closer to 1, better our model. `Greater is better`
+
+- R<sup>2</sup> closer to 1, better our model. `Greater is better`
 - Khi càng thêm predictor vào biểu thức của model -> R^2 sẽ càng giảm.
     - Ví dụ dataset có 5 independence variable. Dùng 4 independence variable có Rsquare lớn hơn dùng 5.
 
@@ -1269,9 +1270,9 @@ X2 ---> ∑(w_i * x_i) -> y^
 Xm --
 ```
 
-- Given a initial values of weight (W1, W2, W3, ... Wm)
+- Given a initial values of weight (W<sub>1</sub>, W<sub>2</sub>, W<sub>3</sub>, ... W<sub>m</sub>)
 - The NN compute the output values y^ and the cost value: `C = 0.5 * ∑(y^ - y) ^ 2`
-- Then, the NN adjusts W_1, W_2, ... W_m to minimize the cost value `C`
+- Then, the NN adjusts W<sub>1</sub>, W<sub>2</sub>, ... W_m to minimize the cost value `C`
 - When the `C` small enough we have a new NN model
 
 ## Gradient descent
