@@ -24,7 +24,7 @@ X_test = sc_X.transform(X_test)
 from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors = 5,
                                   metric = 'minkowski', # metric: minkowski or euclidean
-                                  p = 2)
+                                  p = 2) # norm 2 (euclid); p=1 => norm 1 (tri tuyet doi)
 classifier.fit(X_train, y_train)
 
 # Predict the Test set result
