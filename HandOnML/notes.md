@@ -1,4 +1,5 @@
 # Section 1: course introduction
+
 ## Application of ML
 1. Face recognition in FB
 2. `Kinect` use `Randon forest` to recognize people movement
@@ -17,6 +18,9 @@ Data that human created is really big. About 130 exabytes till 2005.
 ## Tools
 1. R: `R studio`
 2. Python: `Anaconda`
+
+## Some references
+- [Machine Learning Algorithms: Which One to Choose for Your Problem](https://dzone.com/articles/machine-learning-algorithms-which-one-to-choose-fo)
 
 # Section 2: Data Preprocessing
 ## Get the dataset
